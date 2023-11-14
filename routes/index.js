@@ -6,6 +6,9 @@ const regular_handler = (params, req, res, next) => {
   return res.status(params?.code).send(params);
 };
 
+router.get('/health', (req, res) => {
+  return res.send('OK');
+});
 router.get('/perms', mainController.getPermissions);
 
 router.post('/sign-in', mainController.signIn, regular_handler);
@@ -18,7 +21,15 @@ router.get('/get-users', mainController.getUsers, regular_handler);
 router.get('/get-attendence', mainController.getAttendence, regular_handler);
 router.get('/get-student-list', mainController.getStudentList, regular_handler);
 router.get('/download-pdf-doc', mainController.downloadPdf, regular_handler);
-router.post('/create-attendence', mainController.createAttendance, regular_handler);
-router.delete('/delete-attendece/:id', mainController.deleteAttendence, regular_handler);
+router.post(
+  '/create-attendence',
+  mainController.createAttendance,
+  regular_handler
+);
+router.delete(
+  '/delete-attendece/:id',
+  mainController.deleteAttendence,
+  regular_handler
+);
 
 module.exports = router;
