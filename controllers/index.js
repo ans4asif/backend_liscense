@@ -1,5 +1,11 @@
 const { ADMINS, USER, ATTENDENCE } = require('../models/index');
-const { encryptText, pagination, generatePdf, generatePdf2 } = require('../utils/helpers');
+const {
+  encryptText,
+  pagination,
+  generatePdf,
+  generatePdf2,
+} = require('../utils/helpers');
+
 const pdfForm = require('../utils/template/pdfForms');
 const attendenceForm = require('../utils/template/attendenceForm');
 const PATH = require('path');
@@ -10,7 +16,9 @@ exports.signIn = async (req, res, next) => {
   try {
     const admin = await ADMINS.findOne({ email, password });
     if (admin) {
-      res.status(200).json({ success: true, message: 'Signin successful!', admin });
+      res
+        .status(200)
+        .json({ success: true, message: 'Signin successful!', admin });
     } else {
       res.status(401).json({ message: 'Invalid username or password' });
     }
@@ -24,21 +32,28 @@ exports.signUp = async (req, res, next) => {
   if (secret && secret === '548950') {
     const existingAdmin = await ADMINS.findOne({ email });
     if (existingAdmin) {
-      return res.status(409).json({ success: false, message: 'Admin with the same email all ready exist' });
+      return res.status(409).json({
+        success: false,
+        message: 'Admin with the same email all ready exist',
+      });
     }
     const newAdmin = new ADMINS({ email, password, admin_type: 'SUPER_ADMIN' });
-    const token = encryptText(JSON.stringify({ email: newAdmin.email, dateTime: new Date() }));
+    const token = encryptText(
+      JSON.stringify({ email: newAdmin.email, dateTime: new Date() })
+    );
     newAdmin.token = token;
     newAdmin
       .save()
       .then(() => {
         res.status(200).json({ success: true, message: 'Signup successful!' });
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(500).json({ message: 'Failed to signup', error });
       });
   } else {
-    return res.status(400).json({ success: false, message: 'Unauthorised User' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Unauthorised User' });
   }
 };
 exports.deleteAdmin = async (req, res, next) => {
@@ -46,13 +61,17 @@ exports.deleteAdmin = async (req, res, next) => {
   if (secret && secret === '548950') {
     const existingAdmin = await ADMINS.deleteOne({ email })
       .then(() => {
-        res.status(200).json({ success: true, message: 'Admin deleted successful!' });
+        res
+          .status(200)
+          .json({ success: true, message: 'Admin deleted successful!' });
       })
-      .catch(error => {
+      .catch((error) => {
         res.status(500).json({ message: 'Failed to delete', error });
       });
   } else {
-    return res.status(400).json({ success: false, message: 'Unauthorised User' });
+    return res
+      .status(400)
+      .json({ success: false, message: 'Unauthorised User' });
   }
 };
 
@@ -62,7 +81,7 @@ exports.getStudentList = async (req, res, next) => {
       .select({ full_name: 1 })
       .sort([['created_at', -1]])
       .lean();
-    const studentList = students.map(student => ({
+    const studentList = students.map((student) => ({
       value: student._id,
       label: student.full_name,
     }));
@@ -188,6 +207,7 @@ exports.downloadPdf = async (req, res, next) => {
   }
 };
 
+
 exports.createUser = async (req, res, next) => {
   const {
     email,
@@ -222,14 +242,17 @@ exports.createUser = async (req, res, next) => {
     in_car_inst_lic_expiry,
     course_number,
   } = req.body;
-  const existingUser = await USER.findOne({ driving_lisence, isDeleted: false });
+  const existingUser = await USER.findOne({
+    driving_lisence,
+    isDeleted: false,
+  });
   if (existingUser) {
     return res.status(409).json({
       success: false,
       message: 'User with the same Licence Number all ready exist',
     });
   }
-  if (license_image && license_image === undefined || license_image === '') {
+  if ((license_image && license_image === undefined) || license_image === '') {
     license_image = null;
   }
   const lastUser = await USER.findOne().sort([['created_at', -1]]);
@@ -273,10 +296,12 @@ exports.createUser = async (req, res, next) => {
   newUser
     .save()
     .then(() => {
-      res.status(200).json({ success: true, message: 'User created successful!', newUser });
+      res
+        .status(200)
+        .json({ success: true, message: 'User created successful!', newUser });
     })
-    .catch(error => {
-      console.log({error})
+    .catch((error) => {
+      console.log({ error });
       res.status(500).json({ message: 'Failed to create User', error });
     });
 };
@@ -315,7 +340,6 @@ exports.editUser = async (req, res, next) => {
     course_number,
     in_car_driving_lisence,
     in_class_driving_lisence,
-
   } = req.body;
 
   let img;
@@ -325,14 +349,18 @@ exports.editUser = async (req, res, next) => {
     img = license_image;
   }
 
-  const same_lisence = await USER.findOne({ driving_lisence, isDeleted: false,  _id: { $ne: id } });
+  const same_lisence = await USER.findOne({
+    driving_lisence,
+    isDeleted: false,
+    _id: { $ne: id },
+  });
   if (same_lisence) {
     return res.status(409).json({
       success: false,
       message: 'User with the same Licence Number all ready exist',
     });
   }
- 
+
   const existingUser = await USER.findOneAndUpdate(
     { _id: id },
     {
@@ -368,15 +396,17 @@ exports.editUser = async (req, res, next) => {
         course_number,
         in_car_instructor,
         in_car_driving_lisence,
-    in_class_driving_lisence,
+        in_class_driving_lisence,
         isDeleted: false,
       },
-    },
+    }
   )
     .then(() => {
-      res.status(200).json({ success: true, message: 'User edited successful!' });
+      res
+        .status(200)
+        .json({ success: true, message: 'User edited successful!' });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ message: 'Failed to edit User', error });
     });
 };
@@ -389,14 +419,20 @@ exports.deleteUser = async (req, res, next) => {
       _id: id,
     });
     if (!user) {
-      res.status(400).json({ success: false, message: 'Fail to remove user', err });
+      res
+        .status(400)
+        .json({ success: false, message: 'Fail to remove user', err });
     } else {
       user.isDeleted = true;
       await user.save();
-      res.status(200).json({ success: true, message: 'User deleted successful!' });
+      res
+        .status(200)
+        .json({ success: true, message: 'User deleted successful!' });
     }
   } catch (err) {
-    res.status(400).json({ success: false, message: 'Fail to remove user', err });
+    res
+      .status(400)
+      .json({ success: false, message: 'Fail to remove user', err });
   }
 };
 exports.getAttendence = async (req, res, next) => {
@@ -470,9 +506,13 @@ exports.createAttendance = async (req, res, next) => {
   newAttendence
     .save()
     .then(() => {
-      res.status(200).json({ success: true, message: 'Attendence created successful!', newAttendence });
+      res.status(200).json({
+        success: true,
+        message: 'Attendence created successful!',
+        newAttendence,
+      });
     })
-    .catch(error => {
+    .catch((error) => {
       res.status(500).json({ message: 'Failed to create Attendence', error });
     });
 };
@@ -482,9 +522,17 @@ exports.deleteAttendence = async (req, res, next) => {
   try {
     console.log(id);
     const attendence = await ATTENDENCE.findByIdAndDelete(id);
-    res.status(200).json({ success: true, message: 'Attendence sheeet removed succssfully', attendence });
+    res.status(200).json({
+      success: true,
+      message: 'Attendence sheeet removed succssfully',
+      attendence,
+    });
   } catch (err) {
-    res.status(400).json({ success: false, message: 'Fail to remove attendence sheet', err });
+    res.status(400).json({
+      success: false,
+      message: 'Fail to remove attendence sheet',
+      err,
+    });
   }
 };
 exports.getPermissions = async (req, res) => {
