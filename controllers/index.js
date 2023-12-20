@@ -5,10 +5,9 @@ const {
   generatePdf,
   generatePdf2,
 } = require('../utils/helpers');
-
+const { live } = require('../config');
 const pdfForm = require('../utils/template/pdfForms');
 const attendenceForm = require('../utils/template/attendenceForm');
-const PATH = require('path');
 const fs = require('fs');
 
 exports.signIn = async (req, res, next) => {
@@ -168,11 +167,17 @@ exports.downloadPdf = async (req, res, next) => {
     }
 
     const puppeteer = require('puppeteer');
-    const browser = await puppeteer.launch({
+    const options = {
       headless: true,
+      executablePath: '/usr/bin/chromium-browser',
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
       timeout: 60000,
-    });
+    };
+    console.log({ live });
+    if (live == 'false') {
+      delete options.executablePath;
+    }
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
     await page.setContent(hml, { waitUntil: 'networkidle0' });
@@ -206,7 +211,6 @@ exports.downloadPdf = async (req, res, next) => {
     });
   }
 };
-
 
 exports.createUser = async (req, res, next) => {
   const {
