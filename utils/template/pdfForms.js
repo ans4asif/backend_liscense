@@ -605,11 +605,11 @@ module.exports = data => `
     <div class="flex-wrap">
               <div class="field-box">
                 <span class="label">CLASS START TIME:</span>
-                <span class="field-text">&nbsp;</span>
+                <span class="field-text">${data.session_start_time ? data.session_start_time : '&nbsp;'}</span>
               </div>
               <div class="field-box">
     <span class="label">CLASS END TIME:</span>
-                <span class="field-text">&nbsp;</span>
+                <span class="field-text">${data.session_end_time ? data.session_end_time : '&nbsp;'}</span>
     </div>
             </div>
             <div class="flex-wrap">
