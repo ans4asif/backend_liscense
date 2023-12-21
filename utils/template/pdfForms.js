@@ -972,7 +972,7 @@ module.exports = data => `
               <div class="flex-wrap">
                 <div class="field-box">
                   <span class="label">Iss Date:</span>
-                  <span class="field-text">${moment(data.issue_date).format('YYYY-MMM-DD')}</span>
+                  <span class="field-text" style='font-size: 20px;'>${moment(data.issue_date).format('YYYY-MMM-DD')}</span>
                 </div>
                 <div class="field-box">
                   <span class="label">Exp Date:</span>
@@ -981,7 +981,7 @@ module.exports = data => `
               </div>
               <div class="field-box">
                 <span class="label">Address:</span>
-                <span class="field-text" style='font-size: 15px;'>${data.address + ', ' + data.city}</span>
+                <span class="field-text" style='font-size: 18px;'>${data.address + ', ' + data.city}</span>
               </div>
               <div class="field-box">
                 <span class="label">H:Phone #:</span>
