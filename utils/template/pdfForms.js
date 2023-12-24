@@ -80,6 +80,10 @@ module.exports = data => `
         border-bottom: 1px solid #000;
       }
 
+      .bottom_fields {
+        margin-bottom: 20px;
+      }
+
       .heading {
         display: block;
         font-size: 28px;
@@ -140,6 +144,7 @@ module.exports = data => `
       }
       .field-box .field-text {
         flex-grow: 1;
+        margin-left: 3px;
         font-weight: normal;
         font-size: 22px;
         border-bottom: 1px solid #000;
@@ -150,6 +155,7 @@ module.exports = data => `
       }
       .field-box2 .field-text {
         flex-grow: 1;
+        margin-left: 3px;
         font-weight: normal;
         font-size: 22px;
         border-bottom: 1px solid #000;
@@ -540,7 +546,7 @@ module.exports = data => `
                 (Required by M.T.O)
               </li>
             </ol>
-            <p>
+            <p class='bottom_fields'>
               <strong
                 >“I certify that the statements in this document are accurate
                 and consent to the release of any information contained herein
@@ -599,11 +605,11 @@ module.exports = data => `
     <div class="flex-wrap">
               <div class="field-box">
                 <span class="label">CLASS START TIME:</span>
-                <span class="field-text">&nbsp;</span>
+                <span class="field-text">${data.session_start_time ? data.session_start_time : '&nbsp;'}</span>
               </div>
               <div class="field-box">
     <span class="label">CLASS END TIME:</span>
-                <span class="field-text">&nbsp;</span>
+                <span class="field-text">${data.session_end_time ? data.session_end_time : '&nbsp;'}</span>
     </div>
             </div>
             <div class="flex-wrap">
@@ -966,16 +972,16 @@ module.exports = data => `
               <div class="flex-wrap">
                 <div class="field-box">
                   <span class="label">Iss Date:</span>
-                  <span class="field-text">${moment(data.issue_date).format('YYYY-MMM-DD')}</span>
+                  <span class="field-text" style='font-size: 20px;'>${moment(data.issue_date).format('YYYY-MMM-DD')}</span>
                 </div>
                 <div class="field-box">
                   <span class="label">Exp Date:</span>
-                  <span class="field-text">${moment(data.expiry_date).format('YYYY-MMM-DD')}</span>
+                  <span class="field-text" style='font-size: 20px;'>${moment(data.expiry_date).format('YYYY-MMM-DD')}</span>
                 </div>
               </div>
               <div class="field-box">
                 <span class="label">Address:</span>
-                <span class="field-text">${data.address + ', ' + data.city}</span>
+                <span class="field-text" style='font-size: 18px;'>${data.address + ', ' + data.city}</span>
               </div>
               <div class="field-box">
                 <span class="label">H:Phone #:</span>
