@@ -8,6 +8,7 @@ const fs = require('fs');
 // const { chromium } = require('playwright');
 
 exports.connectDatabase = () => {
+  console.log({ MONGO_URL });
   mongoose
     .connect(MONGO_URL, {
       useNewUrlParser: true,
@@ -16,18 +17,25 @@ exports.connectDatabase = () => {
     .then(() => {
       console.log('\x1b[36m%s\x1b[0m', `Database Connected : ${MONGO_URL}`);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error('\x1b[33m%s\x1b[0m', 'Database Connection Error', err);
     });
 };
 
-exports.encryptText = text => {
+exports.encryptText = (text) => {
   console.log({ text });
   const iv = crypto.randomBytes(16);
-  let key = crypto.createHash('sha256').update(String(secret)).digest('base64').substring(0, 32);
+  let key = crypto
+    .createHash('sha256')
+    .update(String(secret))
+    .digest('base64')
+    .substring(0, 32);
   const cipher = crypto.createCipheriv('aes-256-ctr', key, iv);
   const encrypted = cipher.update(text, 'utf8', 'hex');
-  return [encrypted + cipher.final('hex'), Buffer.from(iv).toString('hex')].join('|');
+  return [
+    encrypted + cipher.final('hex'),
+    Buffer.from(iv).toString('hex'),
+  ].join('|');
 };
 exports.pagination = (items, page, totalItems, itemsPerPage) => {
   items = items || [];
@@ -55,13 +63,37 @@ exports.pagination = (items, page, totalItems, itemsPerPage) => {
 exports.filterQuery = ({ query }) => ({
   ...query,
   page: query.page ? Number(query.page) : 1,
-  itemsPerPage: query.itemsPerPage ? Number(query.itemsPerPage) : query.perPage ? Number(query.perPage) : 10,
+  itemsPerPage: query.itemsPerPage
+    ? Number(query.itemsPerPage)
+    : query.perPage
+    ? Number(query.perPage)
+    : 10,
   searchText:
-    query.searchText !== 'null' && query.searchText !== 'undefined' && query.searchText ? query.searchText : '',
-  startDate: query.startDate !== 'null' && query.startDate !== 'undefined' && query.startDate ? query.startDate : '',
-  endDate: query.endDate !== 'null' && query.endDate !== 'undefined' && query.endDate ? query.endDate : '',
+    query.searchText !== 'null' &&
+    query.searchText !== 'undefined' &&
+    query.searchText
+      ? query.searchText
+      : '',
+  startDate:
+    query.startDate !== 'null' &&
+    query.startDate !== 'undefined' &&
+    query.startDate
+      ? query.startDate
+      : '',
+  endDate:
+    query.endDate !== 'null' && query.endDate !== 'undefined' && query.endDate
+      ? query.endDate
+      : '',
   filterText:
-    query.filterText !== 'null' && query.filterText !== 'undefined' && query.filterText ? query.filterText : '',
-  id: query.id !== 'null' && query.id !== 'undefined' && query.id ? query.id : '',
-  status: query.status !== 'null' && query.status !== 'undefined' && query.status ? query.status : '',
+    query.filterText !== 'null' &&
+    query.filterText !== 'undefined' &&
+    query.filterText
+      ? query.filterText
+      : '',
+  id:
+    query.id !== 'null' && query.id !== 'undefined' && query.id ? query.id : '',
+  status:
+    query.status !== 'null' && query.status !== 'undefined' && query.status
+      ? query.status
+      : '',
 });
