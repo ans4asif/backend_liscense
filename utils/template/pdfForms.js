@@ -50,6 +50,7 @@ module.exports = data => `
       }
       .page-header p {
         margin: 0;
+        font-size: 17px;
       }
 
       .page-header2 {
@@ -391,7 +392,7 @@ module.exports = data => `
           <div class="student-number">
             Student Number: <span class="text">${data.student_number}</span>
           </div>
-          <span class="heading">Registration From</span>
+          <span class="heading">Registration Form</span>
           <div class="field-box">
             <span class="label">Mr./Ms./Miss:</span>
             <span class="field-text">${data.full_name}</span>
@@ -399,13 +400,13 @@ module.exports = data => `
           </div>
           <div class="field-box">
             <span class="label">Address:</span>
-            <span class="field-text">${data.address}</span>
+            <span class="field-text" style="margin-left: 4px;">${data.address}</span>
             <span class="abs-text">Complete</span>
           </div>
           <div class="flex-wrap">
             <div class="field-box">
               <span class="label">City:</span>
-              <span class="field-text">${data.city}</span>
+              <span class="field-text" style="margin-left: 4px;">${data.city}</span>
             </div>
             <div class="field-box">
               <span class="label">Province:</span>
@@ -419,7 +420,7 @@ module.exports = data => `
           <div class="flex-wrap">
             <div class="field-box">
               <span class="label">Home Phone #:</span>
-              <span class="field-text">${data.home_phone}</span>
+              <span class="field-text" style="margin-left: 4px;">${data.home_phone}</span>
             </div>
             <div class="field-box">
               <span class="label">Cellular #:</span>
@@ -439,7 +440,7 @@ module.exports = data => `
           <div class="flex-wrap">
             <div class="field-box">
               <span class="label">Driving Licence #:</span>
-              <span class="field-text">${data.driving_lisence}</span>
+              <span class="field-text" style="margin-left: 4px;">${data.driving_lisence}</span>
             </div>
             <ul class="licence-type">
             ${data.licence_type === 'G1' ? `<li>G1</li>` : data.licence_type === 'G2' ? `<li>G2</li>` : `<li>G</li>`}
@@ -663,7 +664,7 @@ module.exports = data => `
               </table>
             </div>
     <div class="field-box">
-              <span class="label">NAME OF IN CLASS TEACHER:</span>
+              <span class="label">NAME OF IN CLASS INSTRUCTOR:</span>
               <span class="field-text">${data?.in_class_instructor ? data?.in_class_instructor : `&nbsp;`}</span>
               
             </div>
