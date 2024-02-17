@@ -1,4 +1,4 @@
-const { ADMINS, USER, ATTENDENCE } = require('../models/index');
+const { ADMINS, USER, ATTENDENCE, INSTRUCTORS } = require('../models/index');
 const {
   encryptText,
   pagination,
@@ -255,7 +255,7 @@ exports.createUser = async (req, res, next) => {
   if (existingUser) {
     return res.status(409).json({
       success: false,
-      message: 'User with the same Licence Number all ready exist',
+      message: 'User with the same Licence Number already exist',
     });
   }
   if ((license_image && license_image === undefined) || license_image === '') {
@@ -365,7 +365,7 @@ exports.editUser = async (req, res, next) => {
   if (same_lisence) {
     return res.status(409).json({
       success: false,
-      message: 'User with the same Licence Number all ready exist',
+      message: 'User with the same Licence Number already exist',
     });
   }
 
@@ -551,10 +551,200 @@ exports.getPermissions = async (req, res) => {
     if (admin) {
       res.status(200).json({
         success: true,
-        permissions: ['students', 'attendence'],
+        permissions: ['students', 'attendence', 'instructors'],
       });
     } else {
       res.status(401).json({ message: 'Unable To Get Permissions' });
     }
+  }
+};
+
+exports.createInstructor = async (req, res, next) => {
+  try {
+    const { driving_lisence, expiry_date, instructor, instructor_name } = req.body.payload;
+    const existingUser = await INSTRUCTORS.findOne({ driving_lisence });
+    if (existingUser) {
+      return next({
+        code: 409,
+        success: false,
+        message: 'Instructor with the same Licence Number already exist',
+      });
+    }
+    const newInstructor = new INSTRUCTORS({
+      driving_lisence,
+      expiry_date,
+      instructor,
+      instructor_name
+    })
+    await newInstructor.save()
+    return next({
+      code: 200,
+      success: true,
+      message: 'Instructor Created Successfully',
+    });
+  } catch (err) {
+    return next({
+      code: 500,
+      success: false,
+      message: 'Internal Server error',
+    });
+  }
+}
+
+exports.getInstructors = async (req, res, next) => {
+  try {
+    let { page, itemsPerPage, searchText } = req.query;
+
+    let query = {
+      $and: [],
+      $or: [],
+    };
+    if (searchText && searchText !== '') {
+      query.$or = [
+        {
+          instructor_name: { $regex: '.*' + searchText + '.*', $options: 'i' },
+        },
+      ];
+    }
+    if (!query.$and.length > 0) {
+      delete query.$and;
+    }
+    if (!query.$or.length > 0) {
+      delete query.$or;
+    }
+    let totalItems = await INSTRUCTORS.countDocuments(query);
+    let instructors = await INSTRUCTORS.find(query)
+      .sort([['created_at', -1]])
+      .skip((+page - 1) * +itemsPerPage)
+      .limit(+itemsPerPage)
+      .lean();
+
+    let data = pagination(instructors, page, totalItems, itemsPerPage);
+    res.status(200).json({ success: true, ...data });
+  } catch (error) {
+    return next({
+      code: 500,
+      success: false,
+      message: 'Internal Server error',
+      error,
+    });
+  }
+};
+
+exports.editInstructor = async (req, res, next) => {
+  try {
+    let id = req.params.id;
+    const { driving_lisence, expiry_date, instructor, instructor_name } = req.body;
+
+    const same_lisence = await INSTRUCTORS.findOne({
+      driving_lisence,
+      _id: { $ne: id },
+    });
+    if (same_lisence) {
+      return next({
+        code: 409,
+        success: false,
+        message: 'Instructor with the same Licence Number already exist',
+      });
+    }
+
+    await INSTRUCTORS.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: {
+          driving_lisence,
+          expiry_date,
+          instructor,
+          instructor_name
+        },
+      }
+    )
+
+    return next({
+      code: 200,
+      success: true,
+      message: 'Instructor updated Successfully',
+    });
+
+  } catch (err) {
+    return next({
+      code: 500,
+      success: false,
+      message: 'Internal Server error',
+      error,
+    });
+  }
+};
+
+exports.deleteInstructor = async (req, res, next) => {
+  let id = req.params.id;
+  try {
+    const instructor = await INSTRUCTORS.findByIdAndDelete({
+      _id: id,
+    });
+    if (!instructor) {
+      return next({
+        code: 500,
+        success: false,
+        message: 'Internal Server error',
+        error,
+      });
+    } else {
+      return next({
+        code: 200,
+        success: true,
+        message: 'Instructor deleted Successfully',
+      });
+    }
+  } catch (err) {
+    return next({
+      code: 500,
+      success: false,
+      message: 'Internal Server error',
+      error,
+    });
+  }
+};
+
+exports.getInstructorsList = async (req, res, next) => {
+  try {
+    const in_car_instructors = await INSTRUCTORS.find({ instructor: { $in: ['In-Car'] } })
+      .select({ instructor_name: 1, driving_lisence: 1 })
+      .sort([['created_at', -1]])
+      .lean();
+    const in_class_instructors = await INSTRUCTORS.find({ 'instructor': { $in: ['In-Class'] } })
+      .select({ instructor_name: 1, driving_lisence: 1 })
+      .sort([['created_at', -1]])
+      .lean();
+    res.status(200).json({
+      success: true,
+      in_car_instructors,
+      in_class_instructors,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Internal Server error',
+      error,
+    });
+  }
+};
+
+exports.getSingleInstructor = async (req, res, next) => {
+  try {
+    let id = req.params.id;
+    const singleInstructor = await INSTRUCTORS.findOne({ _id: id })
+      .select({ instructor_name: 1, driving_lisence: 1, expiry_date: 1 })
+      .lean();
+    res.status(200).json({
+      success: true,
+      singleInstructor
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: 'Internal Server error',
+      error,
+    });
   }
 };
