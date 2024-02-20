@@ -561,7 +561,8 @@ exports.getPermissions = async (req, res) => {
 
 exports.createInstructor = async (req, res, next) => {
   try {
-    const { driving_lisence, expiry_date, instructor, instructor_name } = req.body.payload;
+    const { driving_lisence, expiry_date, instructor, instructor_name } =
+      req.body.payload;
     const existingUser = await INSTRUCTORS.findOne({ driving_lisence });
     if (existingUser) {
       return next({
@@ -574,9 +575,9 @@ exports.createInstructor = async (req, res, next) => {
       driving_lisence,
       expiry_date,
       instructor,
-      instructor_name
-    })
-    await newInstructor.save()
+      instructor_name,
+    });
+    await newInstructor.save();
     return next({
       code: 200,
       success: true,
@@ -589,7 +590,7 @@ exports.createInstructor = async (req, res, next) => {
       message: 'Internal Server error',
     });
   }
-}
+};
 
 exports.getInstructors = async (req, res, next) => {
   try {
@@ -634,7 +635,8 @@ exports.getInstructors = async (req, res, next) => {
 exports.editInstructor = async (req, res, next) => {
   try {
     let id = req.params.id;
-    const { driving_lisence, expiry_date, instructor, instructor_name } = req.body;
+    const { driving_lisence, expiry_date, instructor, instructor_name } =
+      req.body;
 
     const same_lisence = await INSTRUCTORS.findOne({
       driving_lisence,
@@ -655,17 +657,16 @@ exports.editInstructor = async (req, res, next) => {
           driving_lisence,
           expiry_date,
           instructor,
-          instructor_name
+          instructor_name,
         },
       }
-    )
+    );
 
     return next({
       code: 200,
       success: true,
       message: 'Instructor updated Successfully',
     });
-
   } catch (err) {
     return next({
       code: 500,
@@ -708,11 +709,15 @@ exports.deleteInstructor = async (req, res, next) => {
 
 exports.getInstructorsList = async (req, res, next) => {
   try {
-    const in_car_instructors = await INSTRUCTORS.find({ instructor: { $in: ['In-Car'] } })
+    const in_car_instructors = await INSTRUCTORS.find({
+      instructor: { $in: ['In-Car'] },
+    })
       .select({ instructor_name: 1, driving_lisence: 1 })
       .sort([['created_at', -1]])
       .lean();
-    const in_class_instructors = await INSTRUCTORS.find({ 'instructor': { $in: ['In-Class'] } })
+    const in_class_instructors = await INSTRUCTORS.find({
+      instructor: { $in: ['In-Class'] },
+    })
       .select({ instructor_name: 1, driving_lisence: 1 })
       .sort([['created_at', -1]])
       .lean();
@@ -738,7 +743,7 @@ exports.getSingleInstructor = async (req, res, next) => {
       .lean();
     res.status(200).json({
       success: true,
-      singleInstructor
+      singleInstructor,
     });
   } catch (error) {
     res.status(500).json({
