@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-module.exports = data => `
+module.exports = (data) => `
 <html>
   <head>
     <title>PDF Template</title>
@@ -50,6 +50,7 @@ module.exports = data => `
       }
       .page-header p {
         margin: 0;
+        font-size: 17px;
       }
 
       .page-header2 {
@@ -82,8 +83,11 @@ module.exports = data => `
 
       .bottom_fields {
         margin-bottom: 20px;
+        
       }
-
+      .bottom_fields strong{
+        font-size:16px;
+      }
       .heading {
         display: block;
         font-size: 28px;
@@ -391,7 +395,7 @@ module.exports = data => `
           <div class="student-number">
             Student Number: <span class="text">${data.student_number}</span>
           </div>
-          <span class="heading">Registration From</span>
+          <span class="heading">Registration Form</span>
           <div class="field-box">
             <span class="label">Mr./Ms./Miss:</span>
             <span class="field-text">${data.full_name}</span>
@@ -399,13 +403,17 @@ module.exports = data => `
           </div>
           <div class="field-box">
             <span class="label">Address:</span>
-            <span class="field-text">${data.address}</span>
+            <span class="field-text" style="margin-left: 4px;">${
+              data.address
+            }</span>
             <span class="abs-text">Complete</span>
           </div>
           <div class="flex-wrap">
             <div class="field-box">
               <span class="label">City:</span>
-              <span class="field-text">${data.city}</span>
+              <span class="field-text" style="margin-left: 4px;">${
+                data.city
+              }</span>
             </div>
             <div class="field-box">
               <span class="label">Province:</span>
@@ -419,7 +427,9 @@ module.exports = data => `
           <div class="flex-wrap">
             <div class="field-box">
               <span class="label">Home Phone #:</span>
-              <span class="field-text">${data.home_phone}</span>
+              <span class="field-text" style="margin-left: 4px;">${
+                data.home_phone
+              }</span>
             </div>
             <div class="field-box">
               <span class="label">Cellular #:</span>
@@ -429,66 +439,97 @@ module.exports = data => `
           <div class="flex-wrap">
             <div class="field-box">
               <span class="label">Email:</span>
-              <span class="field-text">${data.email ? data.email : '&nbsp;'}</span>
+              <span class="field-text">${
+                data.email ? data.email : '&nbsp;'
+              }</span>
             </div>
             <div class="field-box">
               <span class="label">Emergency Contact #</span>
-              <span class="field-text">${data.emergency_contact ? data.emergency_contact : '&nbsp;'}</span>
+              <span class="field-text">${
+                data.emergency_contact ? data.emergency_contact : '&nbsp;'
+              }</span>
             </div>
           </div>
           <div class="flex-wrap">
             <div class="field-box">
               <span class="label">Driving Licence #:</span>
-              <span class="field-text">${data.driving_lisence}</span>
+              <span class="field-text" style="margin-left: 4px;">${
+                data.driving_lisence
+              }</span>
             </div>
             <ul class="licence-type">
-            ${data.licence_type === 'G1' ? `<li>G1</li>` : data.licence_type === 'G2' ? `<li>G2</li>` : `<li>G</li>`}
+            ${
+              data.licence_type === 'G1'
+                ? `<li>G1</li>`
+                : data.licence_type === 'G2'
+                ? `<li>G2</li>`
+                : `<li>G</li>`
+            }
             </ul>
             <div class="field-box gender-box">
               <span class="label">Gender:</span>
               <ul class="gender-list">
-                ${data.gender === 'Male'
-    ? `<li>Male</li>`
-    : data.gender === 'Female'
-      ? `<li>Female</li>`
-      : `<li>Other</li>`
-  }
+                ${
+                  data.gender === 'Male'
+                    ? `<li>Male</li>`
+                    : data.gender === 'Female'
+                    ? `<li>Female</li>`
+                    : `<li>Other</li>`
+                }
               </ul>
             </div>
           </div>
           <div class="flex-wrap">
             <div class="field-box">
               <span class="label">Issue Date:</span>
-              <span class="field-text">${data.issue_date ? moment(data.issue_date).format('YYYY-MMM-DD') : ' '}</span>
+              <span class="field-text">${
+                data.issue_date
+                  ? moment(data.issue_date).format('YYYY-MMM-DD')
+                  : ' '
+              }</span>
             </div>
             <div class="field-box">
               <span class="label">Expiry Date:</span>
-              <span class="field-text">${data.expiry_date ? moment(data.expiry_date).format('YYYY-MMM-DD') : ''}</span>
+              <span class="field-text">${
+                data.expiry_date
+                  ? moment(data.expiry_date).format('YYYY-MMM-DD')
+                  : ''
+              }</span>
             </div>
             <div class="field-box">
               <span class="label">Date of Birth:</span>
-              <span class="field-text">${moment(data.dob).format('YYYY-MMM-DD')}</span>
+              <span class="field-text">${moment(data.dob).format(
+                'YYYY-MMM-DD'
+              )}</span>
             </div>
           </div>
           <div class="checkbox-wrap">
             <span class="title">Course (Please check one)</span>
             <div class="check-box">
-             <span class="tick">${data?.course === 'Individual Lessons' ? `&#10004` : ``}</span>
+             <span class="tick">${
+               data?.course === 'Individual Lessons' ? `&#10004` : ``
+             }</span>
               <span class="checkbox"></span>
               <span class="label">Individual lessons </span>
             </div>
             <div class="check-box">
-            <span class="tick">${data?.course === 'Others' ? `&#10004` : ``}</span>
+            <span class="tick">${
+              data?.course === 'Others' ? `&#10004` : ``
+            }</span>
               <span class="checkbox"></span>
               <span class="label">Others</span>
             </div>
             <div class="check-box">
-            <span class="tick">${data?.course === 'Full Course' ? `&#10004` : ``}</span>
+            <span class="tick">${
+              data?.course === 'Full Course' ? `&#10004` : ``
+            }</span>
               <span class="checkbox"></span>
               <span class="label">Full Course</span>
             </div>
             <div class="check-box">
-            <span class="tick">${data?.course === 'Full Course With Car Road Test' ? `&#10004` : ``}</span>
+            <span class="tick">${
+              data?.course === 'Full Course With Car Road Test' ? `&#10004` : ``
+            }</span>
               <span class="checkbox"></span>
               <span class="label">Full course with car road test</span>
             </div>
@@ -551,7 +592,7 @@ module.exports = data => `
                 >“I certify that the statements in this document are accurate
                 and consent to the release of any information contained herein
                 to the Ministry of Transportation, Insurance Bureau of Canada
-                and the MTO Inspector.”</strong
+                and the auditing firm retained by the Ministry.”</strong
               >
             </p>
           </div>
@@ -582,7 +623,9 @@ module.exports = data => `
     <div class="flex-wrap">
               <div class="field-box">
                 <span class="label">COURSE #:</span>
-                <span class="field-text">${data.course_number ? data.course_number : '&nbsp;'}</span>
+                <span class="field-text">${
+                  data.course_number ? data.course_number : '&nbsp;'
+                }</span>
               </div>
               <div class="field-box"></div>
             </div>
@@ -595,21 +638,33 @@ module.exports = data => `
     <div class="flex-wrap">
               <div class="field-box">
                 <span class="label">COURSE START DATE:</span>
-                <span class="field-text">${data.course_start_date ? moment(data.course_start_date).format('YYYY-MMM-DD') : '&nbsp;'}</span>
+                <span class="field-text">${
+                  data.course_start_date
+                    ? moment(data.course_start_date).format('YYYY-MMM-DD')
+                    : '&nbsp;'
+                }</span>
               </div>
               <div class="field-box">
     <span class="label">COURSE END DATE:</span>
-                <span class="field-text">${data.courseEndDate ? moment(data.courseEndDate).format('YYYY-MMM-DD') : '&nbsp;'}</span>
+                <span class="field-text">${
+                  data.courseEndDate
+                    ? moment(data.courseEndDate).format('YYYY-MMM-DD')
+                    : '&nbsp;'
+                }</span>
     </div>
             </div>
     <div class="flex-wrap">
               <div class="field-box">
                 <span class="label">CLASS START TIME:</span>
-                <span class="field-text">${data.session_start_time ? data.session_start_time : '&nbsp;'}</span>
+                <span class="field-text">${
+                  data.session_start_time ? data.session_start_time : '&nbsp;'
+                }</span>
               </div>
               <div class="field-box">
     <span class="label">CLASS END TIME:</span>
-                <span class="field-text">${data.session_end_time ? data.session_end_time : '&nbsp;'}</span>
+                <span class="field-text">${
+                  data.session_end_time ? data.session_end_time : '&nbsp;'
+                }</span>
     </div>
             </div>
             <div class="flex-wrap">
@@ -625,37 +680,61 @@ module.exports = data => `
                 <tbody>
                   <tr>
                     <td>&nbsp;SESSION # 1</td>
-                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${data.session_1_date ? moment(data.session_1_date).format('YYYY-MMM-DD') : '&nbsp;'}</td>
+                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
+                      data.session_1_date
+                        ? moment(data.session_1_date).format('YYYY-MMM-DD')
+                        : '&nbsp;'
+                    }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>&nbsp;SESSION # 2</td>
-                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${data.session_2_date ? moment(data.session_2_date).format('YYYY-MMM-DD') : '&nbsp;'}</td>
+                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
+                      data.session_2_date
+                        ? moment(data.session_2_date).format('YYYY-MMM-DD')
+                        : '&nbsp;'
+                    }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>&nbsp;SESSION # 3</td>
-                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${data.session_3_date ? moment(data.session_3_date).format('YYYY-MMM-DD') : '&nbsp;'}</td>
+                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
+                      data.session_3_date
+                        ? moment(data.session_3_date).format('YYYY-MMM-DD')
+                        : '&nbsp;'
+                    }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>&nbsp;SESSION # 4</td>
-                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${data.session_4_date ? moment(data.session_4_date).format('YYYY-MMM-DD') : '&nbsp;'}</td>
+                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
+                      data.session_4_date
+                        ? moment(data.session_4_date).format('YYYY-MMM-DD')
+                        : '&nbsp;'
+                    }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>&nbsp;SESSION # 5</td>
-                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${data.session_5_date ? moment(data.session_5_date).format('YYYY-MMM-DD') : '&nbsp;'}</td>
+                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
+                      data.session_5_date
+                        ? moment(data.session_5_date).format('YYYY-MMM-DD')
+                        : '&nbsp;'
+                    }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                   </tr>
                   <tr>
                     <td>&nbsp;SESSION # 6</td>
-                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${data.session_6_date ? moment(data.session_6_date).format('YYYY-MMM-DD') : '&nbsp;'}</td>
+                    <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
+                      data.session_6_date
+                        ? moment(data.session_6_date).format('YYYY-MMM-DD')
+                        : '&nbsp;'
+                    }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                   </tr>
@@ -663,19 +742,29 @@ module.exports = data => `
               </table>
             </div>
     <div class="field-box">
-              <span class="label">NAME OF IN CLASS TEACHER:</span>
-              <span class="field-text">${data?.in_class_instructor ? data?.in_class_instructor : `&nbsp;`}</span>
+              <span class="label">NAME OF IN CLASS INSTRUCTOR:</span>
+              <span class="field-text">${
+                data?.in_class_instructor ? data?.in_class_instructor : `&nbsp;`
+              }</span>
               
             </div>
     
     <div class="flex-wrap">
               <div class="field-box">
     <span class="label">INSTR LICENCE NO:</span>
-                <span class="field-text">${data?.in_class_driving_lisence ? data?.in_class_driving_lisence : `&nbsp;`}</span>
+                <span class="field-text">${
+                  data?.in_class_driving_lisence
+                    ? data?.in_class_driving_lisence
+                    : `&nbsp;`
+                }</span>
     </div>
     <div class="field-box">
                 <span class="label">INSTR LICENCE EXPIRY:</span>
-                <span class="field-text"> ${data.inst_lic_expiry ? moment(data.inst_lic_expiry).format('YYYY-MMM-DD') : '&nbsp;'}</span>
+                <span class="field-text"> ${
+                  data.inst_lic_expiry
+                    ? moment(data.inst_lic_expiry).format('YYYY-MMM-DD')
+                    : '&nbsp;'
+                }</span>
               </div>
             </div>
             <div class="flex-wrap">
@@ -972,20 +1061,28 @@ module.exports = data => `
               <div class="flex-wrap">
                 <div class="field-box">
                   <span class="label">Iss Date:</span>
-                  <span class="field-text" style='font-size: 20px;'>${moment(data.issue_date).format('YYYY-MMM-DD')}</span>
+                  <span class="field-text" style='font-size: 20px;'>${moment(
+                    data.issue_date
+                  ).format('YYYY-MMM-DD')}</span>
                 </div>
                 <div class="field-box">
                   <span class="label">Exp Date:</span>
-                  <span class="field-text" style='font-size: 20px;'>${moment(data.expiry_date).format('YYYY-MMM-DD')}</span>
+                  <span class="field-text" style='font-size: 20px;'>${moment(
+                    data.expiry_date
+                  ).format('YYYY-MMM-DD')}</span>
                 </div>
               </div>
               <div class="field-box">
                 <span class="label">Address:</span>
-                <span class="field-text" style='font-size: 18px;'>${data.address + ', ' + data.city}</span>
+                <span class="field-text" style='font-size: 18px;'>${
+                  data.address + ', ' + data.city
+                }</span>
               </div>
               <div class="field-box">
                 <span class="label">H:Phone #:</span>
-                <span class="field-text">${data.home_phone ? data.home_phone : `&nbsp;`}</span>
+                <span class="field-text">${
+                  data.home_phone ? data.home_phone : `&nbsp;`
+                }</span>
               </div>
               <div class="field-box">
                 <span class="label">Rd Test Loc/Dt/Time:</span>
@@ -993,15 +1090,25 @@ module.exports = data => `
               </div>
               <div class="field-box">
                 <span class="label">Instr.Name:</span>
-                <span class="field-text">${data?.in_car_instructor ? data?.in_car_instructor : `&nbsp;`}</span>
+                <span class="field-text">${
+                  data?.in_car_instructor ? data?.in_car_instructor : `&nbsp;`
+                }</span>
               </div>
               <div class="field-box">
                 <span class="label">Instr.Lic #:</span>
-                <span class="field-text">${data?.in_car_driving_lisence ? data?.in_car_driving_lisence : `&nbsp;`}</span>
+                <span class="field-text">${
+                  data?.in_car_driving_lisence
+                    ? data?.in_car_driving_lisence
+                    : `&nbsp;`
+                }</span>
               </div>
               <div class="field-box">
                 <span class="label">Instr.Lic Exp:</span>
-                <span class="field-text">${data?.in_car_inst_lic_expiry ? moment(data?.in_car_inst_lic_expiry).format('YYYY-MMM-DD') : `&nbsp;`}</span>
+                <span class="field-text">${
+                  data?.in_car_inst_lic_expiry
+                    ? moment(data?.in_car_inst_lic_expiry).format('YYYY-MMM-DD')
+                    : `&nbsp;`
+                }</span>
               </div>
             </div>
           </div>
@@ -1117,11 +1224,15 @@ module.exports = data => `
             <div class="flex-wrap">
               <div class="field-box-st-num">
                 <span class="label">Student #:</span>
-                <span class="field-num-text" style="text-align:left">${data.student_number}</span>
+                <span class="field-num-text" style="text-align:left">${
+                  data.student_number
+                }</span>
               </div>
               <div class="field-box">
                 <span class="label">Student Name:</span>
-                <span class="field-text" style="text-align:left">${data.full_name}</span>
+                <span class="field-text" style="text-align:left">${
+                  data.full_name
+                }</span>
               </div>
             </div>
           </div>
@@ -1159,13 +1270,23 @@ module.exports = data => `
             </div>
             <div class="field-box">
               <span class="label">Course No:</span>
-              <span class="field-text">${data.course_number ? data.course_number : '&nbsp;'}</span>
+              <span class="field-text">${
+                data.course_number ? data.course_number : '&nbsp;'
+              }</span>
             </div>
           </div>
           <div class="flex-wrap" style="margin-bottom: -11px !important;">
             <div class="field-box">
               <span class="label">Address:</span>
-              <span class="field-text">${data.address + ', ' + data.city + ', ' + data.province + ', ' + data.postal_code}</span>
+              <span class="field-text">${
+                data.address +
+                ', ' +
+                data.city +
+                ', ' +
+                data.province +
+                ', ' +
+                data.postal_code
+              }</span>
             </div>
           </div>
           <div class="flex-wrap" style="margin-bottom: -20px !important;">
@@ -1446,15 +1567,18 @@ module.exports = data => `
         </div>
       </div>
        
-        ${data.license_image && data.license_image !== null && data.license_image !== ''
-    ? `
+        ${
+          data.license_image &&
+          data.license_image !== null &&
+          data.license_image !== ''
+            ? `
           <div class="breakable-div"> 
             <div class="img-wraper">
              <img src="${data.license_image}" />
             </div>
         </div>`
-    : ''
-  }
+            : ''
+        }
       </div>
     </div>
   </body>

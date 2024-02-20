@@ -31,5 +31,11 @@ router.delete(
   mainController.deleteAttendence,
   regular_handler
 );
+router.post('/create-instructor', mainController.createInstructor, regular_handler);
+router.get('/get-instructors', mainController.getInstructors, regular_handler);
+router.delete('/delete-instructor/:id', mainController.deleteInstructor, regular_handler);
+router.patch('/edit-instructor/:id', mainController.editInstructor, regular_handler);
+router.get('/get-instructors-list', mainController.getInstructorsList, regular_handler);
+router.get('/get-single-instructor/:id', mainController.getSingleInstructor, regular_handler);
 
 module.exports = router;
