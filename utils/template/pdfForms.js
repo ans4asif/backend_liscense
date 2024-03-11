@@ -1239,8 +1239,8 @@ module.exports = (data) => `
 
           <div class="flex-wrap">
            <img
-           src="https://storage.cloud.google.com/artifacts.ferrous-pact-393405.appspot.com/form1.png"
-           alt="form"
+           src="https://storage.googleapis.com/artifacts.ferrous-pact-393405.appspot.com/form1.png"
+           alt="forms"
            >
           </div>
           <div class="flex-wrap">
