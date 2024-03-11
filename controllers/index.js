@@ -262,7 +262,7 @@ exports.createUser = async (req, res, next) => {
     license_image = null;
   }
   const lastUser = await USER.findOne().sort([['created_at', -1]]);
-  const st_num = +lastUser.student_number + 1;
+  const st_num = lastUser ? +lastUser?.student_number + 1 : 1000;
   const newUser = new USER({
     email,
     full_name,
