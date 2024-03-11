@@ -5,7 +5,6 @@ const cors = require('cors');
 const { PORT } = require('./config');
 const indexRouter = require('./routes/index');
 const { connectDatabase } = require('./utils/helpers');
-const path = require('path');
 
 const app = express();
 
