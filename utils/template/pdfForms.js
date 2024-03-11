@@ -333,9 +333,15 @@ module.exports = (data) => `
         padding: 5px 80px 5px 5px;
         border: 2px solid #000000;
       }
+      .checkbox-img{
+        margin-right:20px;
+        padding-right:20px;
+      }
       .flex-wrap img {
-        width: 260mm;
-        margin-bottom: 20px;
+        // width: 260mm;
+        width: 220mm;
+        margin-bottom: 10px;
+        margin-right: 25px;
       }
       
       .img-wraper img {
@@ -1237,10 +1243,10 @@ module.exports = (data) => `
             </div>
           </div>
 
-          <div class="flex-wrap">
+          <div class="flex-wrap checkbox-img">
            <img
-           src="https://storage.googleapis.com/artifacts.ferrous-pact-393405.appspot.com/form1.png"
-           alt="forms"
+           src="https://storage.googleapis.com/artifacts.ferrous-pact-393405.appspot.com/checkbox2.png"
+           alt="form"
            >
           </div>
           <div class="flex-wrap">
