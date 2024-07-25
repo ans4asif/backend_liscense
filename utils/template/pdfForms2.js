@@ -1,6 +1,6 @@
-const moment = require('moment');
+const moment = require("moment");
 
-module.exports = data =>`
+module.exports = (data) => `
 <html>
 <head>
     <title>PDF Template</title>
@@ -357,4 +357,4 @@ module.exports = data =>`
 </div>
 </body>
 <html>
-`
+`;

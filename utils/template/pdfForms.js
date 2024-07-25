@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require("moment");
 
 module.exports = (data) => `
 <html>
@@ -378,7 +378,154 @@ module.exports = (data) => `
         margin: 0;
         font-weight: 200;
       }
-      
+        .page-heading {
+        text-align: center;
+        margin-top:10px;
+      }
+      .question-section {
+      }
+      .question-section h2 {
+      }
+      ol {
+        list-style-type: decimal;
+        margin-left: 5px;
+      }
+      ol ol {
+        list-style-type: lower-alpha;
+        margin-left: 20px;
+      }
+      .question-answer-order-list li {
+        font-weight:lighter;
+        font-size:medium
+      }
+      .field-box-fill-blanks .fill-blanks-field-text {
+        flex-grow: 1;
+        margin-left: 3px;
+        font-weight: normal;
+        font-size: 18px;
+        max-width: 260px;
+        border-bottom: 1px solid #000;
+        text-transform: capitalize;
+      }
+      .field-box-fill-blanks {
+        width: 100%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 0 0 25px;
+      }
+
+      .field-box-fill-blanks .label {
+        display: block;
+      }
+
+      .field-box-fill-blanks .field-text {
+        flex-grow: 1;
+        margin-left: 3px;
+        font-weight: normal;
+        font-size: 18px;
+        max-width: 300px;
+        border-bottom: 1px solid #000;
+        text-transform: capitalize;
+      }
+      .field-box-fill-blanks .fill-blanks-options {
+        margin-left: auto;
+      }
+      .true_false {
+        margin-left: 25px;
+        font-weight: normal;
+        font-size:medium
+      }
+      .fill-in-blanks-ol {
+        font-weight: normal;
+        font-size:medium
+      }
+        .fill-in-blanks-ol li {
+        display: flex; 
+        justify-content: space-between;
+      }
+        .answer-field {
+        width: 100%; 
+        text-align: end;
+        font-weight: normal;
+        }
+        .second-page-heading {
+        text-align: end;
+        margin: 0;
+        padding: 0;
+        margin-top:30px;
+      }
+      .horizental-line {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        height: 3px;
+        background-color: black;
+      }
+      .question-answer-p {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        font-weight: normal;
+      }
+      .true-false-block {
+        border: 1px solid black;
+        width: 250px;
+      }
+      .boolean-block {
+        margin-bottom: 0;
+      }
+      .question-block {
+        width: 70%;
+      }
+      .boolean-block spam {
+        margin-right: 20px;
+      }
+      .thank-you-peragraph {
+        margin: 50px 0px;
+        font-weight: normal;
+      }
+      .suggession-paragraph {
+        margin: 50px 0px;
+        font-weight: normal;
+      }
+      .user-suggession-hr {
+        margin-bottom: 50px;
+      }
+        .third-page-heading {
+        text-align:center;
+        margin-top:30px;
+        margin-bottom:4px;
+      }
+      .third-page-sub-heading {
+        text-align: center;
+        margin-bottom: 50px;
+        text-decoration: underline;
+      }
+      .text-block-paragraph {
+        text-align: justify;
+        font-weight: normal;
+      }
+      .small-heading-text {
+        margin-left: 25px;
+      }
+      ul {
+        margin-left: 50px;
+        font-weight: normal;
+      }
+      .paragraph-block {
+        margin: 50px 20px 20px 20px;
+        border: 2px solid black;
+        padding: 8px 8px 16px 8px;
+        font-weight: normal;
+      }
+      .signed-field {
+        margin-right: 100px;
+      }
+      .third-thank-peragraph{
+        font-weight: normal;
+        margin-top: 20px;
+      }
     </style>
   </head>
   <body>
@@ -446,13 +593,13 @@ module.exports = (data) => `
             <div class="field-box">
               <span class="label">Email:</span>
               <span class="field-text">${
-                data.email ? data.email : '&nbsp;'
+                data.email ? data.email : "&nbsp;"
               }</span>
             </div>
             <div class="field-box">
               <span class="label">Emergency Contact #</span>
               <span class="field-text">${
-                data.emergency_contact ? data.emergency_contact : '&nbsp;'
+                data.emergency_contact ? data.emergency_contact : "&nbsp;"
               }</span>
             </div>
           </div>
@@ -465,9 +612,9 @@ module.exports = (data) => `
             </div>
             <ul class="licence-type">
             ${
-              data.licence_type === 'G1'
+              data.licence_type === "G1"
                 ? `<li>G1</li>`
-                : data.licence_type === 'G2'
+                : data.licence_type === "G2"
                 ? `<li>G2</li>`
                 : `<li>G</li>`
             }
@@ -476,9 +623,9 @@ module.exports = (data) => `
               <span class="label">Gender:</span>
               <ul class="gender-list">
                 ${
-                  data.gender === 'Male'
+                  data.gender === "Male"
                     ? `<li>Male</li>`
-                    : data.gender === 'Female'
+                    : data.gender === "Female"
                     ? `<li>Female</li>`
                     : `<li>Other</li>`
                 }
@@ -490,22 +637,22 @@ module.exports = (data) => `
               <span class="label">Issue Date:</span>
               <span class="field-text">${
                 data.issue_date
-                  ? moment(data.issue_date).format('YYYY-MMM-DD')
-                  : ' '
+                  ? moment(data.issue_date).format("YYYY-MMM-DD")
+                  : " "
               }</span>
             </div>
             <div class="field-box">
               <span class="label">Expiry Date:</span>
               <span class="field-text">${
                 data.expiry_date
-                  ? moment(data.expiry_date).format('YYYY-MMM-DD')
-                  : ''
+                  ? moment(data.expiry_date).format("YYYY-MMM-DD")
+                  : ""
               }</span>
             </div>
             <div class="field-box">
               <span class="label">Date of Birth:</span>
               <span class="field-text">${moment(data.dob).format(
-                'YYYY-MMM-DD'
+                "YYYY-MMM-DD"
               )}</span>
             </div>
           </div>
@@ -513,28 +660,28 @@ module.exports = (data) => `
             <span class="title">Course (Please check one)</span>
             <div class="check-box">
              <span class="tick">${
-               data?.course === 'Individual Lessons' ? `&#10004` : ``
+               data?.course === "Individual Lessons" ? `&#10004` : ``
              }</span>
               <span class="checkbox"></span>
               <span class="label">Individual lessons </span>
             </div>
             <div class="check-box">
             <span class="tick">${
-              data?.course === 'Others' ? `&#10004` : ``
+              data?.course === "Others" ? `&#10004` : ``
             }</span>
               <span class="checkbox"></span>
               <span class="label">Others</span>
             </div>
             <div class="check-box">
             <span class="tick">${
-              data?.course === 'Full Course' ? `&#10004` : ``
+              data?.course === "Full Course" ? `&#10004` : ``
             }</span>
               <span class="checkbox"></span>
               <span class="label">Full Course</span>
             </div>
             <div class="check-box">
             <span class="tick">${
-              data?.course === 'Full Course With Car Road Test' ? `&#10004` : ``
+              data?.course === "Full Course With Car Road Test" ? `&#10004` : ``
             }</span>
               <span class="checkbox"></span>
               <span class="label">Full course with car road test</span>
@@ -630,7 +777,7 @@ module.exports = (data) => `
               <div class="field-box">
                 <span class="label">COURSE #:</span>
                 <span class="field-text">${
-                  data.course_number ? data.course_number : '&nbsp;'
+                  data.course_number ? data.course_number : "&nbsp;"
                 }</span>
               </div>
               <div class="field-box"></div>
@@ -646,16 +793,16 @@ module.exports = (data) => `
                 <span class="label">COURSE START DATE:</span>
                 <span class="field-text">${
                   data.course_start_date
-                    ? moment(data.course_start_date).format('YYYY-MMM-DD')
-                    : '&nbsp;'
+                    ? moment(data.course_start_date).format("YYYY-MMM-DD")
+                    : "&nbsp;"
                 }</span>
               </div>
               <div class="field-box">
     <span class="label">COURSE END DATE:</span>
                 <span class="field-text">${
                   data.courseEndDate
-                    ? moment(data.courseEndDate).format('YYYY-MMM-DD')
-                    : '&nbsp;'
+                    ? moment(data.courseEndDate).format("YYYY-MMM-DD")
+                    : "&nbsp;"
                 }</span>
     </div>
             </div>
@@ -663,13 +810,13 @@ module.exports = (data) => `
               <div class="field-box">
                 <span class="label">CLASS START TIME:</span>
                 <span class="field-text">${
-                  data.session_start_time ? data.session_start_time : '&nbsp;'
+                  data.session_start_time ? data.session_start_time : "&nbsp;"
                 }</span>
               </div>
               <div class="field-box">
     <span class="label">CLASS END TIME:</span>
                 <span class="field-text">${
-                  data.session_end_time ? data.session_end_time : '&nbsp;'
+                  data.session_end_time ? data.session_end_time : "&nbsp;"
                 }</span>
     </div>
             </div>
@@ -688,8 +835,8 @@ module.exports = (data) => `
                     <td>&nbsp;SESSION # 1</td>
                     <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
                       data.session_1_date
-                        ? moment(data.session_1_date).format('YYYY-MMM-DD')
-                        : '&nbsp;'
+                        ? moment(data.session_1_date).format("YYYY-MMM-DD")
+                        : "&nbsp;"
                     }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -698,8 +845,8 @@ module.exports = (data) => `
                     <td>&nbsp;SESSION # 2</td>
                     <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
                       data.session_2_date
-                        ? moment(data.session_2_date).format('YYYY-MMM-DD')
-                        : '&nbsp;'
+                        ? moment(data.session_2_date).format("YYYY-MMM-DD")
+                        : "&nbsp;"
                     }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -708,8 +855,8 @@ module.exports = (data) => `
                     <td>&nbsp;SESSION # 3</td>
                     <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
                       data.session_3_date
-                        ? moment(data.session_3_date).format('YYYY-MMM-DD')
-                        : '&nbsp;'
+                        ? moment(data.session_3_date).format("YYYY-MMM-DD")
+                        : "&nbsp;"
                     }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -718,8 +865,8 @@ module.exports = (data) => `
                     <td>&nbsp;SESSION # 4</td>
                     <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
                       data.session_4_date
-                        ? moment(data.session_4_date).format('YYYY-MMM-DD')
-                        : '&nbsp;'
+                        ? moment(data.session_4_date).format("YYYY-MMM-DD")
+                        : "&nbsp;"
                     }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -728,8 +875,8 @@ module.exports = (data) => `
                     <td>&nbsp;SESSION # 5</td>
                     <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
                       data.session_5_date
-                        ? moment(data.session_5_date).format('YYYY-MMM-DD')
-                        : '&nbsp;'
+                        ? moment(data.session_5_date).format("YYYY-MMM-DD")
+                        : "&nbsp;"
                     }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -738,8 +885,8 @@ module.exports = (data) => `
                     <td>&nbsp;SESSION # 6</td>
                     <td style="font-weight: normal !important; font-size: 22px !important;">&nbsp; ${
                       data.session_6_date
-                        ? moment(data.session_6_date).format('YYYY-MMM-DD')
-                        : '&nbsp;'
+                        ? moment(data.session_6_date).format("YYYY-MMM-DD")
+                        : "&nbsp;"
                     }</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
@@ -754,24 +901,23 @@ module.exports = (data) => `
               }</span>
               
             </div>
-    
-    <div class="flex-wrap">
-              <div class="field-box">
-    <span class="label">INSTR LICENCE NO:</span>
-                <span class="field-text">${
-                  data?.in_class_driving_lisence
-                    ? data?.in_class_driving_lisence
-                    : `&nbsp;`
-                }</span>
-    </div>
-    <div class="field-box">
-                <span class="label">INSTR LICENCE EXPIRY:</span>
-                <span class="field-text"> ${
-                  data.inst_lic_expiry
-                    ? moment(data.inst_lic_expiry).format('YYYY-MMM-DD')
-                    : '&nbsp;'
-                }</span>
-              </div>
+
+            <div class="field-box">
+              <span class="label">INSTR LICENCE NO:</span>
+              <span class="field-text">${
+                data?.in_class_driving_lisence
+                  ? data?.in_class_driving_lisence
+                  : `&nbsp;`
+              }</span>
+              
+            </div>
+            <div class="field-box">
+              <span class="label">INSTR LICENCE EXPIRY:</span>
+              <span class="field-text">${
+                data.inst_lic_expiry
+                  ? moment(data.inst_lic_expiry).format("YYYY-MMM-DD")
+                  : "&nbsp;"
+              }</span>
             </div>
             <div class="flex-wrap">
             <div class="field-box">
@@ -1069,19 +1215,19 @@ module.exports = (data) => `
                   <span class="label">Iss Date:</span>
                   <span class="field-text" style='font-size: 20px;'>${moment(
                     data.issue_date
-                  ).format('YYYY-MMM-DD')}</span>
+                  ).format("YYYY-MMM-DD")}</span>
                 </div>
                 <div class="field-box">
                   <span class="label">Exp Date:</span>
                   <span class="field-text" style='font-size: 20px;'>${moment(
                     data.expiry_date
-                  ).format('YYYY-MMM-DD')}</span>
+                  ).format("YYYY-MMM-DD")}</span>
                 </div>
               </div>
               <div class="field-box">
                 <span class="label">Address:</span>
                 <span class="field-text" style='font-size: 18px;'>${
-                  data.address + ', ' + data.city
+                  data.address + ", " + data.city
                 }</span>
               </div>
               <div class="field-box">
@@ -1112,7 +1258,7 @@ module.exports = (data) => `
                 <span class="label">Instr.Lic Exp:</span>
                 <span class="field-text">${
                   data?.in_car_inst_lic_expiry
-                    ? moment(data?.in_car_inst_lic_expiry).format('YYYY-MMM-DD')
+                    ? moment(data?.in_car_inst_lic_expiry).format("YYYY-MMM-DD")
                     : `&nbsp;`
                 }</span>
               </div>
@@ -1277,7 +1423,7 @@ module.exports = (data) => `
             <div class="field-box">
               <span class="label">Course No:</span>
               <span class="field-text">${
-                data.course_number ? data.course_number : '&nbsp;'
+                data.course_number ? data.course_number : "&nbsp;"
               }</span>
             </div>
           </div>
@@ -1286,11 +1432,11 @@ module.exports = (data) => `
               <span class="label">Address:</span>
               <span class="field-text">${
                 data.address +
-                ', ' +
+                ", " +
                 data.city +
-                ', ' +
+                ", " +
                 data.province +
-                ', ' +
+                ", " +
                 data.postal_code
               }</span>
             </div>
@@ -1576,15 +1722,251 @@ module.exports = (data) => `
         ${
           data.license_image &&
           data.license_image !== null &&
-          data.license_image !== ''
+          data.license_image !== ""
             ? `
           <div class="breakable-div"> 
             <div class="img-wraper">
              <img src="${data.license_image}" />
             </div>
         </div>`
-            : ''
+            : ""
         }
+        <div class="question-section">
+        <h2 class="page-heading">Student Workbook Test Answers</h2>
+            <ol>
+              <li class="question_li">
+                <h5>When approaching an amber light, you should:</h5>
+                <ol class="question-answer-order-list">
+                  <li>Speed up</li>
+                  <li>brake heavy</li>
+                  <li>stop if unsafe, go through at normal speed</li>
+                  <div class='answer-field'>Answer ______________________________</div>
+                </ol>
+              </li>
+              <li>
+                <h5>Which statement is correct with regards to seatbelts?</h5>
+                <ol class="question-answer-order-list">
+                  <li>Driver is responsible for anyone under 16</li>
+                  <li>Driver is not responsible for anyone over 16</li>
+                  <li>Driver is responsible for everyone in the car</li>
+                  <div class='answer-field'>Answer ______________________________</div>
+                </ol>
+              </li>
+              <li>
+                <h5>
+                  How much space should you leave when stopped behind another
+                  vehicle?
+                </h5>
+                <ol class="question-answer-order-list">
+                  <li>½ car length</li>
+                  <li>
+                    When you can see rear tires in front of you touching the
+                    pavement
+                  </li>
+                  <li>1 car length</li>
+                  <div class='answer-field'>Answer ______________________________</div>
+                </ol>
+              </li>
+              <li>
+                <h5>
+                  When using high beams with a car approaching from the opposite
+                  direction, what distance should you switch to low beams?
+                </h5>
+                <ol class="question-answer-order-list">
+                  <li>60 meters</li>
+                  <li>100 meters</li>
+                  <li>150 meters</li>
+                  <div class='answer-field'>Answer ______________________________</div>
+                </ol>
+              </li>
+              <li>
+                <h5>
+                  When using high beams with a car approaching from the opposite
+                  direction, what distance should you switch to low beams?
+                </h5>
+                <ol class="fill-in-blanks-ol">
+                  <li>
+                  <spam class="label">Is it ______________________________</spam>
+                    <spam class="fill-blanks-options">SAFE / TIME / NECESSARY</spam>
+                  </li>
+                  <li>
+                    <spam class="label">Do I have _________________________</spam>
+                    <spam class="fill-blanks-options">SAFE / TIME / NECESSARY</spam>
+                  </li>
+                  <li>
+                    <spam class="label">Is it ______________________________</spam>
+                    <spam class="fill-blanks-options">SAFE / TIME / NECESSARY</spam>
+                  </li>
+                </ol>
+              </li>
+              <li>
+                <h5>
+                  What position on the ignition switch allows you to check your
+                  gauges and instrument panel?
+                </h5>
+                <ol class="question-answer-order-list">
+                  <li>Start</li>
+                  <li>Accessory</li>
+                  <li>On</li>
+                  <div class='answer-field'>Answer ______________________________</div>
+                </ol>
+              </li>
+              <li>
+                <h5>
+                  When dealing with outside checks, before entering the vehicle,
+                  there are five "Fs" to check. Fill in the words in the spaces
+                  provided
+                </h5>
+                <ol class="question-answer-order-list" style="padding-bottom: 20px;">
+                  <li>F L ___ I D S</li>
+                  <li>F R A ___ T U R E</li>
+                  <li>F L ___ T S</li>
+                  <li>F R E ___ D O M</li>
+                  <li>F I ___ T H</li>
+                </ol>
+              </li>
+              <li>
+                <h5>
+                  When driving down the road and there is a solid yellow line,
+                  what does this mean?
+                </h5>
+                <ol class="question-answer-order-list">
+                  <li>It is unsafe to pass</li>
+                  <li>It is not permitted to pass</li>
+                  <li>It is safe to pass</li>
+                  <div class='answer-field'>Answer ______________________________</div>
+                </ol>
+              </li>
+              <li>
+                <h5>A stop sign is considered a stop position</h5>
+                <spam class="true_false">True_____</spam>
+                <spam class="true_false">False_____</spam>
+              </li>
+              <li>
+                <h5>
+                  When dealing with a tailgater, which is the proper method to
+                  slow them down
+                </h5>
+                <ol class="question-answer-order-list">
+                  <li>Slam on brakes</li>
+                  <li>It doesn’t matter as long as you have room in front</li>
+                  <li>Tapping your brakes</li>
+                  <div class='answer-field'>Answer ______________________________</div>
+                </ol>
+              </li>
+            </ol>
+          </div>
+          <div class="breakable-div">
+          <h1 class="second-page-heading">Student Activity Guide</h1>
+          <hr class="horizental-line" />
+          <h2>COURSE EVALUATION</h2>
+          <p class="thank-you-peragraph">
+            <strong>Thank you</strong> for selecting for your Beginner Driver
+            Education.
+          </p>
+          <div class="question-answer-p">
+            <spam class="question-block"
+              >Did you find the course informative and educational?</spam
+            >
+            <spam class="boolean-block">
+              <spam class="yes-field">YES _____</spam>
+              <spam class="no-field">NO _____</spam>
+            </spam>
+          </div>
+          <div class="question-answer-p">
+            <spam class="question-block"
+              >Was in-class an engaging experience?</spam
+            >
+            <spam class="boolean-block">
+              <spam class="yes-field">YES _____</spam>
+              <spam class="no-field">NO _____</spam>
+            </spam>
+          </div>
+          <div class="question-answer-p">
+            <spam class="question-block"
+              >Would you recommend this driver education course?</spam
+            >
+            <spam class="boolean-block">
+              <spam class="yes-field">YES _____</spam>
+              <spam class="no-field">NO _____</spam>
+            </spam>
+          </div>
+          <div class="question-answer-p">
+            <spam class="question-block"
+              >Was the in-car teacher attentive and responsive?</spam
+            >
+            <spam class="boolean-block">
+              <spam class="yes-field">YES _____</spam>
+              <spam class="no-field">NO _____</spam>
+            </spam>
+          </div>
+          <div class="question-answer-p">
+            <spam class="question-block">
+              Do you think 10 hours in the car is sufficient to provide basic
+              driving knowledge?
+            </spam>
+            <spam class="boolean-block">
+              <spam class="yes-field">YES _____</spam>
+              <spam class="no-field">NO _____</spam>
+            </spam>
+          </div>
+          <p class="suggession-paragraph">
+            If you have any other comments, please feel free to include them in
+            the space provided below.
+          </p>
+          <hr class="user-suggession-hr"/>
+          <hr class="user-suggession-hr"/>
+          <hr class="user-suggession-hr"/>
+        </div>
+        <div class="breakable-div">
+          <h1 class="third-page-heading">Student Activity Workbook Guide</h1>
+          <h4 class="third-page-sub-heading">STATEMENT OF COMPLETION OF COURSE</h4>
+          <p class="text-block-paragraph">
+            Thank you for enrolling in the Beginner Driver Education Course
+            approved by the Ministry of Transportation. Appreciation and thanks
+            to Licence 2 Drive for conducting the MTO-approved BDE course.
+          </p>
+          <p class="text-block-paragraph">
+            Completing the Student Activity Workbook is essential for us to
+            submit your course completion to the Ministry of Transportation and
+            to issue your course completion certificate. Promptly returning the
+            completed workbook will help us process your information
+            efficiently, avoiding delays with your insurance company receiving
+            the necessary documentation.
+          </p>
+          <h5 class="small-heading-text">Please note:</h5>
+          <ul>
+            <li>
+              You will not receive a course completion certificate until the
+              workbook is returned, fully completed, and processed by our
+              office.
+            </li>
+            <li>
+              If you lose the Activity Workbook, a replacement fee will apply,
+              and you must redo all previously completed activities in the new
+              workbook.
+            </li>
+            <li>
+              If you choose to retain your Homework Book Guide after it has been
+              assessed by your in- class teacher, you must keep it safely for
+              three years. You agree to provide the Homework Book Guide to the
+              school upon request, especially for the auditing purposes of the
+              Ministry of Transportation.
+            </li>
+          </ul>
+          <p class="third-thank-peragraph">Thank you for your cooperation.</p>
+          <div class="paragraph-block">
+            <p class="text-block-paragraph">
+              This is to certify that I ____________________________ have
+              completed the 20-hour online course and the 10-hour Homework Book
+              activity guide as part of the Beginner Driver Education course
+              requirements. I choose to keep the Homework Book Guide in my
+              custody, and I agree with the above-mentioned statement.
+            </p>
+            <spam class="signed-field">Signed _____________________</spam>
+            <spam>Dated _____________________</spam>
+          </div>
+        </div>
       </div>
     </div>
   </body>
