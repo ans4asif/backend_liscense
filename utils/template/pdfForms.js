@@ -445,11 +445,6 @@ module.exports = (data) => `
         display: flex; 
         justify-content: space-between;
       }
-        .answer-field {
-        width: 100%; 
-        text-align: end;
-        font-weight: normal;
-        }
         .second-page-heading {
         text-align: end;
         margin: 0;
@@ -525,6 +520,13 @@ module.exports = (data) => `
       .third-thank-peragraph{
         font-weight: normal;
         margin-top: 20px;
+      }
+      .last-answer-li {
+        display: flex;
+        justify-content: space-between;
+      }
+      .q-page-container {
+      padding:30px;
       }
     </style>
   </head>
@@ -1731,7 +1733,7 @@ module.exports = (data) => `
         </div>`
             : ""
         }
-        <div class="question-section">
+        <div class="question-section q-page-container">
         <h2 class="page-heading">Student Workbook Test Answers</h2>
             <ol>
               <li class="question_li">
@@ -1739,8 +1741,10 @@ module.exports = (data) => `
                 <ol class="question-answer-order-list">
                   <li>Speed up</li>
                   <li>brake heavy</li>
-                  <li>stop if unsafe, go through at normal speed</li>
-                  <div class='answer-field'>Answer ______________________________</div>
+                  <li class='last-answer-li'>
+                  <spam>stop if unsafe, go through at normal speed</spam>
+                  <spam>Answer ______________</spam>
+                  </li>
                 </ol>
               </li>
               <li>
@@ -1748,8 +1752,10 @@ module.exports = (data) => `
                 <ol class="question-answer-order-list">
                   <li>Driver is responsible for anyone under 16</li>
                   <li>Driver is not responsible for anyone over 16</li>
-                  <li>Driver is responsible for everyone in the car</li>
-                  <div class='answer-field'>Answer ______________________________</div>
+                  <li class='last-answer-li'>
+                  <spam>Driver is responsible for everyone in the car</spam>
+                  <spam>Answer ______________</spam>
+                  </li>
                 </ol>
               </li>
               <li>
@@ -1763,8 +1769,10 @@ module.exports = (data) => `
                     When you can see rear tires in front of you touching the
                     pavement
                   </li>
-                  <li>1 car length</li>
-                  <div class='answer-field'>Answer ______________________________</div>
+                  <li class='last-answer-li'>
+                  <spam>1 car length</spam>
+                  <spam>Answer ______________</spam>
+                  </li>
                 </ol>
               </li>
               <li>
@@ -1775,8 +1783,10 @@ module.exports = (data) => `
                 <ol class="question-answer-order-list">
                   <li>60 meters</li>
                   <li>100 meters</li>
-                  <li>150 meters</li>
-                  <div class='answer-field'>Answer ______________________________</div>
+                  <li class='last-answer-li'>
+                  <spam>150 meters</spam>
+                  <spam>Answer ______________</spam>
+                  </li>
                 </ol>
               </li>
               <li>
@@ -1807,8 +1817,10 @@ module.exports = (data) => `
                 <ol class="question-answer-order-list">
                   <li>Start</li>
                   <li>Accessory</li>
-                  <li>On</li>
-                  <div class='answer-field'>Answer ______________________________</div>
+                  <li class='last-answer-li'>
+                  <spam>On</spam>
+                  <spam>Answer ______________</spam>
+                  </li>
                 </ol>
               </li>
               <li>
@@ -1833,8 +1845,10 @@ module.exports = (data) => `
                 <ol class="question-answer-order-list">
                   <li>It is unsafe to pass</li>
                   <li>It is not permitted to pass</li>
-                  <li>It is safe to pass</li>
-                  <div class='answer-field'>Answer ______________________________</div>
+                  <li class='last-answer-li'>
+                  <spam>It is safe to pass</spam>
+                  <spam>Answer ______________</spam>
+                  </li>
                 </ol>
               </li>
               <li>
@@ -1850,8 +1864,10 @@ module.exports = (data) => `
                 <ol class="question-answer-order-list">
                   <li>Slam on brakes</li>
                   <li>It doesn’t matter as long as you have room in front</li>
-                  <li>Tapping your brakes</li>
-                  <div class='answer-field'>Answer ______________________________</div>
+                  <li>
+                  <spam>Tapping your brakes</spam>
+                  <spam>Answer ______________</spam>
+                  </li>
                 </ol>
               </li>
             </ol>
