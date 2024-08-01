@@ -500,18 +500,21 @@ module.exports = (data) => `
       .text-block-paragraph {
         text-align: justify;
         font-weight: normal;
+        line-height: 30px;
+        margin-bottom: 10px;
       }
       .small-heading-text {
         margin-left: 25px;
+        margin-top: 20px;
       }
       ul {
         margin-left: 50px;
         font-weight: normal;
       }
       .paragraph-block {
-        margin: 50px 20px 20px 20px;
+        margin: 70px 20px 20px 20px;
         border: 2px solid black;
-        padding: 8px 8px 16px 8px;
+        padding: 12px 12px 20px 12px;
         font-weight: normal;
       }
       .signed-field {
@@ -527,6 +530,9 @@ module.exports = (data) => `
       }
       .q-page-container {
       padding:30px;
+      }
+      .student-workbook {
+      padding: 30px;
       }
     </style>
   </head>
@@ -1734,7 +1740,7 @@ module.exports = (data) => `
             : ""
         }
         <div class="question-section q-page-container">
-        <h2 class="page-heading">Student Workbook Test Answers</h2>
+        <h1 class="page-heading">STUDENT WORKBOOK TEST ANSWER</h1>
             <ol>
               <li class="question_li">
                 <h5>When approaching an amber light, you should:</h5>
@@ -1887,7 +1893,7 @@ module.exports = (data) => `
             </ol>
           </div>
           <div class="breakable-div">
-          <h1 class="second-page-heading">Student Activity Guide</h1>
+          <h1 class="second-page-heading">STUDENT ACTIVITY GUIDE</h1>
           <hr class="horizental-line" />
           <h2>COURSE EVALUATION</h2>
           <p class="thank-you-peragraph">
@@ -1948,8 +1954,8 @@ module.exports = (data) => `
           <hr class="user-suggession-hr"/>
           <hr class="user-suggession-hr"/>
         </div>
-        <div class="breakable-div">
-          <h1 class="third-page-heading">Student Activity Workbook Guide</h1>
+        <div class="breakable-div student-workbook">
+          <h1 class="third-page-heading">STUDENT WORKBOOK</h1>
           <h4 class="third-page-sub-heading">STATEMENT OF COMPLETION OF COURSE</h4>
           <p class="text-block-paragraph">
             Thank you for enrolling in the Beginner Driver Education Course
@@ -1964,24 +1970,30 @@ module.exports = (data) => `
             efficiently, avoiding delays with your insurance company receiving
             the necessary documentation.
           </p>
-          <h5 class="small-heading-text">Please note:</h5>
+          <h4 class="small-heading-text">Please note:</h4>
           <ul>
             <li>
-              You will not receive a course completion certificate until the
+            <p class="text-block-paragraph">
+            You will not receive a course completion certificate until the
               workbook is returned, fully completed, and processed by our
               office.
+            </p>
             </li>
             <li>
-              If you lose the Activity Workbook, a replacement fee will apply,
+            <p class="text-block-paragraph">
+            If you lose the Activity Workbook, a replacement fee will apply,
               and you must redo all previously completed activities in the new
               workbook.
+            </p>
             </li>
             <li>
-              If you choose to retain your Homework Book Guide after it has been
+            <p class="text-block-paragraph">
+            If you choose to retain your Homework Book Guide after it has been
               assessed by your in- class teacher, you must keep it safely for
               three years. You agree to provide the Homework Book Guide to the
               school upon request, especially for the auditing purposes of the
               Ministry of Transportation.
+            </p>
             </li>
           </ul>
           <p class="third-thank-peragraph">Thank you for your cooperation.</p>
