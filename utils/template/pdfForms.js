@@ -381,6 +381,7 @@ module.exports = (data) => `
         .page-heading {
         text-align: center;
         margin-top:10px;
+        margin-bottom: 20px;
       }
       .question-section {
       }
@@ -1740,7 +1741,7 @@ module.exports = (data) => `
             : ""
         }
         <div class="question-section q-page-container">
-        <h1 class="page-heading">STUDENT WORKBOOK TEST ANSWER</h1>
+        <h1 class="page-heading">STUDENT WORKBOOK</h1>
             <ol>
               <li class="question_li">
                 <h5>When approaching an amber light, you should:</h5>
@@ -1955,7 +1956,7 @@ module.exports = (data) => `
           <hr class="user-suggession-hr"/>
         </div>
         <div class="breakable-div student-workbook">
-          <h1 class="third-page-heading">STUDENT WORKBOOK</h1>
+          <h1 class="third-page-heading">STUDENT ACTIVITY WORKBOOK GUIDE</h1>
           <h4 class="third-page-sub-heading">STATEMENT OF COMPLETION OF COURSE</h4>
           <p class="text-block-paragraph">
             Thank you for enrolling in the Beginner Driver Education Course
