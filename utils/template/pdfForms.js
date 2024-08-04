@@ -370,8 +370,8 @@ module.exports = (data) => `
       }
       .paragraph {
         width: 100%;
-        font-size: 10px
-        font-weight: normal;
+        font-size: 16px;
+        font-weight: bold;
         margin: -2px !important;
       }
       .paragraph p strong {
@@ -515,7 +515,7 @@ module.exports = (data) => `
       .paragraph-block {
         margin: 70px 20px 20px 20px;
         border: 2px solid black;
-        padding: 12px 12px 20px 12px;
+        padding: 35px 12px;
         font-weight: normal;
       }
       .signed-field {
@@ -1718,9 +1718,7 @@ module.exports = (data) => `
         </div>
         <div class="paragraph" style="margin-top: -5px !important;">
           <p>
-            I hereby give Licence 2 Drive permission to release
-            any information given to the course provider to the Ministry of Transportation or Drive Test Centers.
-          </p>
+           I hereby give Licence 2 Drive permission to release any information given the course provider and I certify that the statements in this document are accurate and consent to the release of any information contained herein to the Ministry of Transportation, Insurance Bureau of Canada and the auditing firm retained by the Ministry.</p>
         </div>
         <div class="field-box" style="max-width: 300px;">
           <span class="label">Signature:</span>
