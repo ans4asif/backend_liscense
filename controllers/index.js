@@ -169,7 +169,7 @@ exports.downloadPdf = async (req, res, next) => {
     const puppeteer = require("puppeteer");
     const options = {
       // headless: true,
-      headless: new,
+      headless: 'new',
       executablePath: "/usr/bin/chromium-browser",
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
       timeout: 60000,
