@@ -1,14 +1,14 @@
-const { ADMINS, USER, ATTENDENCE, INSTRUCTORS } = require('../models/index');
+const { ADMINS, USER, ATTENDENCE, INSTRUCTORS } = require("../models/index");
 const {
   encryptText,
   pagination,
   generatePdf,
   generatePdf2,
-} = require('../utils/helpers');
-const { live } = require('../config');
-const pdfForm = require('../utils/template/pdfForms');
-const attendenceForm = require('../utils/template/attendenceForm');
-const fs = require('fs');
+} = require("../utils/helpers");
+const { live } = require("../config");
+const pdfForm = require("../utils/template/pdfForms");
+const attendenceForm = require("../utils/template/attendenceForm");
+const fs = require("fs");
 
 exports.signIn = async (req, res, next) => {
   const { email, password } = req.body;
@@ -17,26 +17,26 @@ exports.signIn = async (req, res, next) => {
     if (admin) {
       res
         .status(200)
-        .json({ success: true, message: 'Signin successful!', admin });
+        .json({ success: true, message: "Signin successful!", admin });
     } else {
-      res.status(401).json({ message: 'Invalid username or password' });
+      res.status(401).json({ message: "Invalid username or password" });
     }
   } catch (error) {
-    res.status(500).json({ message: 'Failed to signin', error });
+    res.status(500).json({ message: "Failed to signin", error });
   }
 };
 
 exports.signUp = async (req, res, next) => {
   const { email, password, secret } = req.body;
-  if (secret && secret === '548950') {
+  if (secret && secret === "548950") {
     const existingAdmin = await ADMINS.findOne({ email });
     if (existingAdmin) {
       return res.status(409).json({
         success: false,
-        message: 'Admin with the same email all ready exist',
+        message: "Admin with the same email all ready exist",
       });
     }
-    const newAdmin = new ADMINS({ email, password, admin_type: 'SUPER_ADMIN' });
+    const newAdmin = new ADMINS({ email, password, admin_type: "SUPER_ADMIN" });
     const token = encryptText(
       JSON.stringify({ email: newAdmin.email, dateTime: new Date() })
     );
@@ -44,33 +44,33 @@ exports.signUp = async (req, res, next) => {
     newAdmin
       .save()
       .then(() => {
-        res.status(200).json({ success: true, message: 'Signup successful!' });
+        res.status(200).json({ success: true, message: "Signup successful!" });
       })
       .catch((error) => {
-        res.status(500).json({ message: 'Failed to signup', error });
+        res.status(500).json({ message: "Failed to signup", error });
       });
   } else {
     return res
       .status(400)
-      .json({ success: false, message: 'Unauthorised User' });
+      .json({ success: false, message: "Unauthorised User" });
   }
 };
 exports.deleteAdmin = async (req, res, next) => {
   const { email, secret } = req.body;
-  if (secret && secret === '548950') {
+  if (secret && secret === "548950") {
     const existingAdmin = await ADMINS.deleteOne({ email })
       .then(() => {
         res
           .status(200)
-          .json({ success: true, message: 'Admin deleted successful!' });
+          .json({ success: true, message: "Admin deleted successful!" });
       })
       .catch((error) => {
-        res.status(500).json({ message: 'Failed to delete', error });
+        res.status(500).json({ message: "Failed to delete", error });
       });
   } else {
     return res
       .status(400)
-      .json({ success: false, message: 'Unauthorised User' });
+      .json({ success: false, message: "Unauthorised User" });
   }
 };
 
@@ -78,7 +78,7 @@ exports.getStudentList = async (req, res, next) => {
   try {
     let students = await USER.find({ isDeleted: false })
       .select({ full_name: 1 })
-      .sort([['created_at', -1]])
+      .sort([["created_at", -1]])
       .lean();
     const studentList = students.map((student) => ({
       value: student._id,
@@ -90,7 +90,7 @@ exports.getStudentList = async (req, res, next) => {
     return next({
       code: 500,
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
       error,
     });
   }
@@ -108,16 +108,16 @@ exports.getUsers = async (req, res, next) => {
         isDeleted: false,
       },
     ];
-    if (searchText && searchText !== '') {
+    if (searchText && searchText !== "") {
       query.$or = [
         {
-          email: { $regex: '.*' + searchText + '.*', $options: 'i' },
+          email: { $regex: ".*" + searchText + ".*", $options: "i" },
         },
         {
-          full_name: { $regex: '.*' + searchText + '.*', $options: 'i' },
+          full_name: { $regex: ".*" + searchText + ".*", $options: "i" },
         },
         {
-          driving_lisence: { $regex: '.*' + searchText + '.*', $options: 'i' },
+          driving_lisence: { $regex: ".*" + searchText + ".*", $options: "i" },
         },
       ];
     }
@@ -129,7 +129,7 @@ exports.getUsers = async (req, res, next) => {
     }
     let totalItems = await USER.countDocuments(query);
     let admins = await USER.find(query)
-      .sort([['created_at', -1]])
+      .sort([["created_at", -1]])
       .skip((+page - 1) * +itemsPerPage)
       .limit(+itemsPerPage)
       .lean();
@@ -140,7 +140,7 @@ exports.getUsers = async (req, res, next) => {
     return next({
       code: 500,
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
       error,
     });
   }
@@ -152,12 +152,12 @@ exports.downloadPdf = async (req, res, next) => {
     console.log({ type });
     let hml;
 
-    if (type === 'attendence') {
+    if (type === "attendence") {
       let attendence = await ATTENDENCE.findById(id);
       const student = attendence?.students;
       const studentList = [];
       for (let i = 1; i <= 20; i++) {
-        const name = i <= student.length ? student[i - 1] : ' ';
+        const name = i <= student.length ? student[i - 1] : " ";
         studentList.push({ index: i, name });
       }
       hml = attendenceForm(attendence, studentList);
@@ -166,47 +166,50 @@ exports.downloadPdf = async (req, res, next) => {
       hml = pdfForm(user);
     }
 
-    const puppeteer = require('puppeteer');
+    const puppeteer = require("puppeteer");
     const options = {
-      headless: true,
-      executablePath: '/usr/bin/chromium-browser',
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      // headless: true,
+      headless: new,
+      executablePath: "/usr/bin/chromium-browser",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
       timeout: 60000,
     };
     console.log({ live });
-    if (live == 'false') {
+    if (live == "false") {
       delete options.executablePath;
     }
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
-    await page.setContent(hml, { waitUntil: 'networkidle0' });
-    await page.emulateMediaType('screen');
+    // Set a higher timeout for page operations
+    await page.setDefaultNavigationTimeout(120000); // 120 seconds
+    await page.setContent(hml, { waitUntil: "networkidle0" });
+    await page.emulateMediaType("screen");
 
     await page.pdf({
-      path: './form.pdf',
-      format: 'A4',
+      path: "./form.pdf",
+      format: "A4",
       scale: 0.9,
-      height: '700px',
-      width: '700px',
+      height: "700px",
+      width: "700px",
       printBackground: true,
     });
 
     await browser.close();
 
-    res.setHeader('Content-disposition', 'attachment; filename=orders.pdf');
-    res.setHeader('Content-type', 'application/pdf');
-    fs.createReadStream('./form.pdf').pipe(res);
+    res.setHeader("Content-disposition", "attachment; filename=orders.pdf");
+    res.setHeader("Content-type", "application/pdf");
+    fs.createReadStream("./form.pdf").pipe(res);
 
     setTimeout(() => {
-      fs.unlinkSync('./form.pdf');
+      fs.unlinkSync("./form.pdf");
     }, 100);
   } catch (error) {
     console.log({ error });
     return next({
       code: 500,
       success: false,
-      message: error?.message || 'Internal Server error',
+      message: error?.message || "Internal Server error",
       error,
     });
   }
@@ -255,13 +258,13 @@ exports.createUser = async (req, res, next) => {
   if (existingUser) {
     return res.status(409).json({
       success: false,
-      message: 'User with the same Licence Number already exist',
+      message: "User with the same Licence Number already exist",
     });
   }
-  if ((license_image && license_image === undefined) || license_image === '') {
+  if ((license_image && license_image === undefined) || license_image === "") {
     license_image = null;
   }
-  const lastUser = await USER.findOne().sort([['created_at', -1]]);
+  const lastUser = await USER.findOne().sort([["created_at", -1]]);
   const st_num = lastUser ? +lastUser?.student_number + 1 : 1000;
   const newUser = new USER({
     email,
@@ -269,7 +272,7 @@ exports.createUser = async (req, res, next) => {
     address,
     city,
     postal_code,
-    province: 'Ontario',
+    province: "Ontario",
     home_phone,
     cell_phone,
     emergency_contact,
@@ -306,11 +309,11 @@ exports.createUser = async (req, res, next) => {
     .then(() => {
       res
         .status(200)
-        .json({ success: true, message: 'User created successful!', newUser });
+        .json({ success: true, message: "User created successful!", newUser });
     })
     .catch((error) => {
       console.log({ error });
-      res.status(500).json({ message: 'Failed to create User', error });
+      res.status(500).json({ message: "Failed to create User", error });
     });
 };
 
@@ -365,7 +368,7 @@ exports.editUser = async (req, res, next) => {
   if (same_lisence) {
     return res.status(409).json({
       success: false,
-      message: 'User with the same Licence Number already exist',
+      message: "User with the same Licence Number already exist",
     });
   }
 
@@ -380,7 +383,7 @@ exports.editUser = async (req, res, next) => {
         postal_code,
         home_phone,
         cell_phone,
-        province: 'Ontario',
+        province: "Ontario",
         emergency_contact,
         driving_lisence,
         gender: gender?.value,
@@ -412,10 +415,10 @@ exports.editUser = async (req, res, next) => {
     .then(() => {
       res
         .status(200)
-        .json({ success: true, message: 'User edited successful!' });
+        .json({ success: true, message: "User edited successful!" });
     })
     .catch((error) => {
-      res.status(500).json({ message: 'Failed to edit User', error });
+      res.status(500).json({ message: "Failed to edit User", error });
     });
 };
 
@@ -429,18 +432,18 @@ exports.deleteUser = async (req, res, next) => {
     if (!user) {
       res
         .status(400)
-        .json({ success: false, message: 'Fail to remove user', err });
+        .json({ success: false, message: "Fail to remove user", err });
     } else {
       user.isDeleted = true;
       await user.save();
       res
         .status(200)
-        .json({ success: true, message: 'User deleted successful!' });
+        .json({ success: true, message: "User deleted successful!" });
     }
   } catch (err) {
     res
       .status(400)
-      .json({ success: false, message: 'Fail to remove user', err });
+      .json({ success: false, message: "Fail to remove user", err });
   }
 };
 exports.getAttendence = async (req, res, next) => {
@@ -451,16 +454,16 @@ exports.getAttendence = async (req, res, next) => {
       $and: [],
       $or: [],
     };
-    if (searchText && searchText !== '' && searchText !== undefined) {
+    if (searchText && searchText !== "" && searchText !== undefined) {
       query.$or = [
         {
-          course_number: { $regex: '.*' + searchText + '.*', $options: 'i' },
+          course_number: { $regex: ".*" + searchText + ".*", $options: "i" },
         },
         {
-          inst_name: { $regex: '.*' + searchText + '.*', $options: 'i' },
+          inst_name: { $regex: ".*" + searchText + ".*", $options: "i" },
         },
         {
-          session_date: { $regex: '.*' + searchText + '.*', $options: 'i' },
+          session_date: { $regex: ".*" + searchText + ".*", $options: "i" },
         },
       ];
     }
@@ -472,7 +475,7 @@ exports.getAttendence = async (req, res, next) => {
     }
     let totalItems = await ATTENDENCE.countDocuments(query);
     let admins = await ATTENDENCE.find(query)
-      .sort([['created_at', -1]])
+      .sort([["created_at", -1]])
       .skip((+page - 1) * +itemsPerPage)
       .limit(+itemsPerPage)
       .lean();
@@ -482,7 +485,7 @@ exports.getAttendence = async (req, res, next) => {
     return next({
       code: 500,
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
       error,
     });
   }
@@ -516,12 +519,12 @@ exports.createAttendance = async (req, res, next) => {
     .then(() => {
       res.status(200).json({
         success: true,
-        message: 'Attendence created successful!',
+        message: "Attendence created successful!",
         newAttendence,
       });
     })
     .catch((error) => {
-      res.status(500).json({ message: 'Failed to create Attendence', error });
+      res.status(500).json({ message: "Failed to create Attendence", error });
     });
 };
 
@@ -532,13 +535,13 @@ exports.deleteAttendence = async (req, res, next) => {
     const attendence = await ATTENDENCE.findByIdAndDelete(id);
     res.status(200).json({
       success: true,
-      message: 'Attendence sheeet removed succssfully',
+      message: "Attendence sheeet removed succssfully",
       attendence,
     });
   } catch (err) {
     res.status(400).json({
       success: false,
-      message: 'Fail to remove attendence sheet',
+      message: "Fail to remove attendence sheet",
       err,
     });
   }
@@ -551,10 +554,10 @@ exports.getPermissions = async (req, res) => {
     if (admin) {
       res.status(200).json({
         success: true,
-        permissions: ['students', 'attendence', 'instructors'],
+        permissions: ["students", "attendence", "instructors"],
       });
     } else {
-      res.status(401).json({ message: 'Unable To Get Permissions' });
+      res.status(401).json({ message: "Unable To Get Permissions" });
     }
   }
 };
@@ -568,7 +571,7 @@ exports.createInstructor = async (req, res, next) => {
       return next({
         code: 409,
         success: false,
-        message: 'Instructor with the same Licence Number already exist',
+        message: "Instructor with the same Licence Number already exist",
       });
     }
     const newInstructor = new INSTRUCTORS({
@@ -581,13 +584,13 @@ exports.createInstructor = async (req, res, next) => {
     return next({
       code: 200,
       success: true,
-      message: 'Instructor Created Successfully',
+      message: "Instructor Created Successfully",
     });
   } catch (err) {
     return next({
       code: 500,
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
     });
   }
 };
@@ -600,10 +603,10 @@ exports.getInstructors = async (req, res, next) => {
       $and: [],
       $or: [],
     };
-    if (searchText && searchText !== '') {
+    if (searchText && searchText !== "") {
       query.$or = [
         {
-          instructor_name: { $regex: '.*' + searchText + '.*', $options: 'i' },
+          instructor_name: { $regex: ".*" + searchText + ".*", $options: "i" },
         },
       ];
     }
@@ -615,7 +618,7 @@ exports.getInstructors = async (req, res, next) => {
     }
     let totalItems = await INSTRUCTORS.countDocuments(query);
     let instructors = await INSTRUCTORS.find(query)
-      .sort([['created_at', -1]])
+      .sort([["created_at", -1]])
       .skip((+page - 1) * +itemsPerPage)
       .limit(+itemsPerPage)
       .lean();
@@ -626,7 +629,7 @@ exports.getInstructors = async (req, res, next) => {
     return next({
       code: 500,
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
       error,
     });
   }
@@ -646,7 +649,7 @@ exports.editInstructor = async (req, res, next) => {
       return next({
         code: 409,
         success: false,
-        message: 'Instructor with the same Licence Number already exist',
+        message: "Instructor with the same Licence Number already exist",
       });
     }
 
@@ -665,13 +668,13 @@ exports.editInstructor = async (req, res, next) => {
     return next({
       code: 200,
       success: true,
-      message: 'Instructor updated Successfully',
+      message: "Instructor updated Successfully",
     });
   } catch (err) {
     return next({
       code: 500,
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
       error,
     });
   }
@@ -687,21 +690,21 @@ exports.deleteInstructor = async (req, res, next) => {
       return next({
         code: 500,
         success: false,
-        message: 'Internal Server error',
+        message: "Internal Server error",
         error,
       });
     } else {
       return next({
         code: 200,
         success: true,
-        message: 'Instructor deleted Successfully',
+        message: "Instructor deleted Successfully",
       });
     }
   } catch (err) {
     return next({
       code: 500,
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
       error,
     });
   }
@@ -710,16 +713,16 @@ exports.deleteInstructor = async (req, res, next) => {
 exports.getInstructorsList = async (req, res, next) => {
   try {
     const in_car_instructors = await INSTRUCTORS.find({
-      instructor: { $in: ['In-Car'] },
+      instructor: { $in: ["In-Car"] },
     })
       .select({ instructor_name: 1, driving_lisence: 1 })
-      .sort([['created_at', -1]])
+      .sort([["created_at", -1]])
       .lean();
     const in_class_instructors = await INSTRUCTORS.find({
-      instructor: { $in: ['In-Class'] },
+      instructor: { $in: ["In-Class"] },
     })
       .select({ instructor_name: 1, driving_lisence: 1 })
-      .sort([['created_at', -1]])
+      .sort([["created_at", -1]])
       .lean();
     res.status(200).json({
       success: true,
@@ -729,7 +732,7 @@ exports.getInstructorsList = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
       error,
     });
   }
@@ -748,7 +751,7 @@ exports.getSingleInstructor = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Internal Server error',
+      message: "Internal Server error",
       error,
     });
   }
