@@ -187,8 +187,13 @@ exports.downloadPdf = async (req, res, next) => {
     if (live == "false") {
       delete options.executablePath;
     }
+    console.log("launching pupeteer");
     browser = await puppeteer.launch(options);
+    console.log("new page")
+
     page = await browser.newPage();
+    console.log("after new page")
+
 
     // Set a higher timeout for page operations
     await page.setDefaultNavigationTimeout(120000); // 120 seconds
@@ -221,6 +226,7 @@ exports.downloadPdf = async (req, res, next) => {
       error,
     });
   } finally {
+    console.log("in finally");
     if (browser) {
       await browser.close();
     }
