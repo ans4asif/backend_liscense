@@ -169,10 +169,18 @@ exports.downloadPdf = async (req, res, next) => {
 
     const puppeteer = require("puppeteer");
     const options = {
-      // headless: true,
-      headless: "new",
+      headless: true,
+      // headless: "new",
       executablePath: "/usr/bin/chromium-browser",
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-gpu",
+        "--disable-dev-shm-usage",
+        "--no-first-run",
+        "--no-zygote",
+        // "--single-process", // <- this one doesn't works in Windows
+      ],
       timeout: 90000,
     };
     console.log({ live });
@@ -180,7 +188,7 @@ exports.downloadPdf = async (req, res, next) => {
       delete options.executablePath;
     }
     browser = await puppeteer.launch(options);
-     page = await browser.newPage();
+    page = await browser.newPage();
 
     // Set a higher timeout for page operations
     await page.setDefaultNavigationTimeout(120000); // 120 seconds
@@ -216,9 +224,9 @@ exports.downloadPdf = async (req, res, next) => {
     if (browser) {
       await browser.close();
     }
-    if (page) {
-      await page.close();
-    }
+    // if (page) {
+    //   await page.close();
+    // }
   }
 };
 
