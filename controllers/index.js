@@ -147,6 +147,7 @@ exports.getUsers = async (req, res, next) => {
 };
 
 exports.downloadPdf = async (req, res, next) => {
+  let browser, page;
   try {
     let { id, type } = req.query;
     console.log({ type });
@@ -169,17 +170,17 @@ exports.downloadPdf = async (req, res, next) => {
     const puppeteer = require("puppeteer");
     const options = {
       // headless: true,
-      headless: 'new',
+      headless: "new",
       executablePath: "/usr/bin/chromium-browser",
       args: ["--no-sandbox", "--disable-setuid-sandbox"],
-      timeout: 60000,
+      timeout: 90000,
     };
     console.log({ live });
     if (live == "false") {
       delete options.executablePath;
     }
-    const browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
+    browser = await puppeteer.launch(options);
+     page = await browser.newPage();
 
     // Set a higher timeout for page operations
     await page.setDefaultNavigationTimeout(120000); // 120 seconds
@@ -194,8 +195,7 @@ exports.downloadPdf = async (req, res, next) => {
       width: "700px",
       printBackground: true,
     });
-
-    await browser.close();
+    // await browser.close();
 
     res.setHeader("Content-disposition", "attachment; filename=orders.pdf");
     res.setHeader("Content-type", "application/pdf");
@@ -212,6 +212,13 @@ exports.downloadPdf = async (req, res, next) => {
       message: error?.message || "Internal Server error",
       error,
     });
+  } finally {
+    if (browser) {
+      await browser.close();
+    }
+    if (page) {
+      await page.close();
+    }
   }
 };
 

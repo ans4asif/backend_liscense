@@ -1,0 +1,9 @@
+runtime: nodejs20
+instance_class: F2
+build_env_variables:
+  GOOGLE_NODE_RUN_SCRIPTS: ''
+  PORT: 8080
+  LIVE: 'false'
+  SECRET: 987654321
+  MONGO_URL: "mongodb+srv://alicod100:yfCWr6DsH3yPwgyU@license2drive.qft1pdi.mongodb.net/?retryWrites=true&w=majority"
+ 
