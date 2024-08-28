@@ -189,11 +189,10 @@ exports.downloadPdf = async (req, res, next) => {
     }
     console.log("launching pupeteer");
     browser = await puppeteer.launch(options);
-    console.log("new page")
+    console.log("new page");
 
     page = await browser.newPage();
-    console.log("after new page")
-
+    console.log("after new page");
 
     // Set a higher timeout for page operations
     await page.setDefaultNavigationTimeout(120000); // 120 seconds
@@ -547,6 +546,49 @@ exports.createAttendance = async (req, res, next) => {
     .catch((error) => {
       res.status(500).json({ message: "Failed to create Attendence", error });
     });
+};
+exports.updateAttendance = async (req, res, next) => {
+  const {
+    students,
+    course_number,
+    session_number,
+    session_date,
+    session_start_time,
+    session_end_time,
+    inst_name,
+    instr_driving_lisence,
+    inst_expiry_date,
+  } = req.body;
+
+  //write the code to update the attendence
+  try {
+    const attendence = await ATTENDENCE.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        $set: {
+          students,
+          course_number,
+          session_number,
+          session_date,
+          session_start_time,
+          session_end_time,
+          inst_name,
+          instr_driving_lisence,
+          inst_expiry_date,
+        },
+      }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Attendence updated successfully!",
+      newAttendence: attendence,
+    });
+  } catch (err) {
+    return res
+      .status(500)
+      .json({ message: "Failed to update Attendence", error });
+  }
 };
 
 exports.deleteAttendence = async (req, res, next) => {

@@ -372,11 +372,13 @@ module.exports = (data) => `
         width: 100%;
         font-size: 16px;
         font-weight: bold;
+        line-height:18px;
         margin: -2px !important;
       }
       .paragraph p strong {
         margin: 0;
         font-weight: 200;
+        line-height:18px;
       }
         .page-heading {
         text-align: center;
@@ -505,22 +507,22 @@ module.exports = (data) => `
         margin-bottom: 10px;
       }
       .small-heading-text {
-        margin-left: 25px;
-        margin-top: 20px;
+        margin: 20px 0px;
       }
       ul {
         margin-left: 50px;
         font-weight: normal;
       }
       .paragraph-block {
-        margin: 70px 20px 20px 20px;
+        margin: 70px 0px 20px 0px;
         border: 2px solid black;
         padding: 35px 12px;
         font-weight: normal;
       }
       .signed-field {
-        margin-right: 100px;
+        margin-right: 200px;
       }
+      
       .third-thank-peragraph{
         font-weight: normal;
         margin-top: 20px;
@@ -703,13 +705,13 @@ module.exports = (data) => `
                 Students registered for full course must attend 20 hours of
                 lessons in- class lessons along with 10 hrs. of homework. There
                 will also be 10 hours in-car lessons. Full attendance is
-                mandatory. A quiz will be held at the end of each in-class
+                mandatory. A quiz will be held at the end of each In-class
                 session. A final test will be conducted at the end of the entire
                 course. In-car test will be conducted after 10 in-car lessons.
               </li>
               <li>
                 The certificate will be issued when the course is completed in
-                full and the student achieves a passing grade of 70% in-class
+                full and the student achieves a passing grade of 70% In-class
                 and 75% in-car
               </li>
               <li>Extra lessons OR individual lessons must be paid by cash.</li>
@@ -1910,7 +1912,7 @@ module.exports = (data) => `
           </div>
           <div class="question-answer-p">
             <spam class="question-block"
-              >Was in-class an engaging experience?</spam
+              >Was In-class an engaging experience?</spam
             >
             <spam class="boolean-block">
               <spam class="yes-field">YES _____</spam>
@@ -1971,41 +1973,41 @@ module.exports = (data) => `
           </p>
           <h4 class="small-heading-text">Please note:</h4>
           <ul>
-            <li>
+            <li class="ml-2">
             <p class="text-block-paragraph">
             You will not receive a course completion certificate until the
               workbook is returned, fully completed, and processed by our
               office.
             </p>
             </li>
-            <li>
+            <li class="ml-2">
             <p class="text-block-paragraph">
             If you lose the Activity Workbook, a replacement fee will apply,
               and you must redo all previously completed activities in the new
               workbook.
             </p>
             </li>
-            <li>
+            <li class="ml-2">
             <p class="text-block-paragraph">
             If you choose to retain your Homework Book Guide after it has been
-              assessed by your in- class teacher, you must keep it safely for
+              assessed by your In-class teacher, you must keep it safely for
               three years. You agree to provide the Homework Book Guide to the
-              school upon request, especially for the auditing purposes of the
-              Ministry of Transportation.
+              school upon request, especially for the auditing purposes and the auditing firm retained
+              by the Ministry of Transportation.
             </p>
             </li>
           </ul>
           <p class="third-thank-peragraph">Thank you for your cooperation.</p>
           <div class="paragraph-block">
             <p class="text-block-paragraph">
-              This is to certify that I ____________________________ have
+              This is to certify that I _____________________________________________________ have
               completed the 20-hour online course and the 10-hour Homework Book
               activity guide as part of the Beginner Driver Education course
               requirements. I choose to keep the Homework Book Guide in my
               custody, and I agree with the above-mentioned statement.
             </p>
-            <spam class="signed-field">Signed _____________________</spam>
-            <spam>Dated _____________________</spam>
+            <span class="signed-field">Signed _____________________</span>
+            <span>Date _____________________</span>
           </div>
         </div>
       </div>

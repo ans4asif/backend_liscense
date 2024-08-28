@@ -26,6 +26,11 @@ router.post(
   mainController.createAttendance,
   regular_handler
 );
+router.put(
+  '/update-attendence/:id',
+  mainController.updateAttendance,
+  regular_handler
+);
 router.delete(
   '/delete-attendece/:id',
   mainController.deleteAttendence,
