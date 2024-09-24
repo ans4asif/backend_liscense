@@ -926,7 +926,7 @@ module.exports = (data) => `
               <span class="label">INSTR LICENCE EXPIRY:</span>
               <span class="field-text">${
                 data.inst_lic_expiry
-                  ? moment(data.inst_lic_expiry).format("YYYY-MMM-DD")
+                  ? moment.utc(data.inst_lic_expiry).format("YYYY-MMM-DD")
                   : "&nbsp;"
               }</span>
             </div>
@@ -1269,7 +1269,7 @@ module.exports = (data) => `
                 <span class="label">Instr.Lic Exp:</span>
                 <span class="field-text">${
                   data?.in_car_inst_lic_expiry
-                    ? moment(data?.in_car_inst_lic_expiry).format("YYYY-MMM-DD")
+                    ? moment.utc(data?.in_car_inst_lic_expiry).format("YYYY-MMM-DD")
                     : `&nbsp;`
                 }</span>
               </div>
