@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require("moment");
 
 module.exports = (data, studentList) => `
 <html>
@@ -78,6 +78,11 @@ module.exports = (data, studentList) => `
         text-transform: capitalize;
       }
 
+      .field-box.time-box {
+        width: 34%;
+        flex-grow: 0;
+      }
+
       .flex-wrap {
         display: flex;
         align-items: center;
@@ -140,39 +145,59 @@ module.exports = (data, studentList) => `
         <div class="flex-wrap">
           <div class="field-box">
             <span class="label"><strong>Course #:</strong></span>
-            <span class="field-text">${data.course_number ? data.course_number : ''}</span>
+            <span class="field-text">${
+              data.course_number ? data.course_number : ""
+            }</span>
           </div>
           <div class="field-box">
             <span class="label"><strong>Session #:</strong></span>
-            <span class="field-text">${data.session_number ? data.session_number : ''}</span>
+            <span class="field-text">${
+              data.session_number ? data.session_number : ""
+            }</span>
           </div>
           <div class="field-box">
             <span class="label"><strong>Session date:</strong></span>
-            <span class="field-text">${data.session_date ? moment(data.session_date).format('YYYY-MMM-DD') : ''}</span>
+            <span class="field-text">${
+              data.session_date
+                ? moment(data.session_date).format("YYYY-MMM-DD")
+                : ""
+            }</span>
           </div>
         </div>
         <div class="flex-wrap">
-          <div class="field-box">
+          <div class="field-box time-box">
             <span class="label"><strong>Start time:</strong></span>
-            <span class="field-text">${data.session_start_time ? data.session_start_time : ''}</span>
+            <span class="field-text">${
+              data.session_start_time ? data.session_start_time : ""
+            }</span>
           </div>
-          <div class="field-box">
+          <div class="field-box time-box">
             <span class="label"><strong>End time:</strong></span>
-            <span class="field-text">${data.session_end_time ? data.session_end_time : ''}</span>
+            <span class="field-text">${
+              data.session_end_time ? data.session_end_time : ""
+            }</span>
           </div>
           <div class="field-box">
             <span class="label"><strong>Inst: Name:</strong></span>
-            <span class="field-text">${data.inst_name ? data.inst_name : ''}</span>
+            <span class="field-text">${
+              data.inst_name ? data.inst_name : ""
+            }</span>
           </div>
         </div>
         <div class="flex-wrap">
           <div class="field-box">
             <span class="label"><strong>Instr: Lic #:</strong></span>
-            <span class="field-text" style="font-size: 16px !important">${data.instr_driving_lisence ? data.instr_driving_lisence : ''}</span>
+            <span class="field-text" style="font-size: 16px !important">${
+              data.instr_driving_lisence ? data.instr_driving_lisence : ""
+            }</span>
           </div>
           <div class="field-box">
             <span class="label"><strong>Expiry Date:</strong></span>
-            <span class="field-text">${data.inst_expiry_date ? moment(data.inst_expiry_date).format('YYYY-MMM-DD') : ''}</span>
+            <span class="field-text">${
+              data.inst_expiry_date
+                ? moment(data.inst_expiry_date).format("YYYY-MMM-DD")
+                : ""
+            }</span>
           </div>
           <div class="field-box">
             <span class="label"><strong>Sign:</strong></span>
@@ -188,15 +213,17 @@ module.exports = (data, studentList) => `
                 <th><strong>SIGNATURE OF STUDENT</strong></th>
               </tr>
             </thead>
-            ${studentList?.map(student => {
-              return`
+            ${studentList
+              ?.map((student) => {
+                return `
               <tr>
               <td>${student.index}</td>
               <td><strong>${student.name}</strong></td>
               <td></td>
             </tr>
-            `
-            }).join('')}
+            `;
+              })
+              .join("")}
               <td>&nbsp;</td>
               <td></td>
               <td></td>
