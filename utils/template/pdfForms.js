@@ -1269,7 +1269,9 @@ module.exports = (data) => `
                 <span class="label">Instr.Lic Exp:</span>
                 <span class="field-text">${
                   data?.in_car_inst_lic_expiry
-                    ? moment.utc(data?.in_car_inst_lic_expiry).format("YYYY-MMM-DD")
+                    ? moment
+                        .utc(data?.in_car_inst_lic_expiry)
+                        .format("YYYY-MMM-DD")
                     : `&nbsp;`
                 }</span>
               </div>
@@ -1727,7 +1729,11 @@ module.exports = (data) => `
           <span class="field-text">&nbsp;</span>
         </div>
       </div>
-       
+    <div class="breakable-div">
+    <div style="height: 100vh;">
+    <!-- Intentionally left blank -->
+      </div>
+      </div>   
         ${
           data.license_image &&
           data.license_image !== null &&
